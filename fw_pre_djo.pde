@@ -7,8 +7,17 @@ void setup() {
     engine = new Engine();
     particle = new Particle(width/2, height/2);
 
+    addParticleToEngineShowAndUpdate(particle);
+}
+
+void addParticleToEngineShowAndUpdate(Particle particle) {
     engine.addUpdate(particle);
     engine.addShow(particle);
+}
+
+void removeParticleFromEngineShowAndUpdate(Particle particle) {
+    engine.removeUpdate(particle);
+    engine.removeShow(particle);
 }
 
 int count = 0;
@@ -17,19 +26,24 @@ boolean removed = false;
 void draw() {
     background(0);
 
+
+    engine.update();
+    engine.draw();
+
     count++;
 
-    if (count > 60 && !removed) {
+    if (count > 20 && !removed) {
         println("removed update");
 
-        engine.removeUpdate(particle);
-
-        engine.removeShow(particle);
+        removeParticleFromEngineShowAndUpdate(particle);
         
         removed = true;
     }
 
-    engine.update();
+    if (count > 40) {
+        addParticleToEngineShowAndUpdate(particle);
 
-    engine.draw();
+        count = 0;
+        removed = false;
+    }
 }
