@@ -14,7 +14,7 @@ class Engine {
     }
 
     void removeUpdate(Update update) {
-        updatesToRemove.remove(update);
+        updatesToRemove.add(update);
     }
 
     void addShow(Show show) {
@@ -22,7 +22,7 @@ class Engine {
     }
 
     void removeShow(Show show) {
-        showsToRemove.remove(show);
+        showsToRemove.add(show);
     }
 
     void update() {

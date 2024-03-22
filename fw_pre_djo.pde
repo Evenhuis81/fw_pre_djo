@@ -12,16 +12,21 @@ void setup() {
 }
 
 int count = 0;
+boolean removed = false;
 
 void draw() {
     background(0);
 
     count++;
 
-    if (count > 60) {
+    if (count > 60 && !removed) {
+        println("removed update");
+
         engine.removeUpdate(particle);
 
         engine.removeShow(particle);
+        
+        removed = true;
     }
 
     engine.update();
