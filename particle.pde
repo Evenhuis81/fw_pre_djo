@@ -2,18 +2,20 @@ class Particle implements Update, Show {
     PVector pos, vel, acc;
     int radius, strokeRed, strokeGreen, strokeBlue, strokeAlpha, fillRed, fillGreen, fillBlue, fillAlpha;
 
+    Particle() {}
+
     Particle(float x, float y) {
         pos = new PVector(x, y);
         vel = new PVector();
         acc = new PVector();
         radius = 15;
-        strokeRed = 255;
-        strokeGreen = 0;
-        strokeBlue = 0;
+        strokeRed = (int) random(256);
+        strokeGreen = (int) random(256);
+        strokeBlue = (int) random(256);
         strokeAlpha = 255;
-        fillRed = 0;
-        fillGreen = 255;
-        fillBlue = 0;
+        fillRed = (int) random(256);
+        fillGreen = (int) random(256);
+        fillBlue = (int) random(256);
         fillAlpha = 255;
     }
 
