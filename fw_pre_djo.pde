@@ -1,19 +1,14 @@
 import java.util.Arrays;
 
 Engine engine;
-Spark spark;
 int backgroundColor = 0;
 
 void setup() {
     size(800, 600);
 
     engine = new Engine();
-    spark = new Spark(width/2, height);
-
-    spark.vel.y = -10; // launchSpeed
-    spark.acc.y = 0.1; // gravity
-    spark.setLauncher(true);
-
+    
+    Spark spark = new Spark(width/2, height + 15, color(255, 0, 0), color(0, 255, 0));
 
     engine.addUpdate(spark);
     engine.addShow(spark);
