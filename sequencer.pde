@@ -3,6 +3,7 @@ class Sequencer implements Update, Start { // Sequence one
     ArrayList<Integer> timeStamps = new ArrayList<Integer>();
     float lastTime, timePassed;
     int index = 0;
+    boolean running = false;
 
     void update() {
         timePassed += millis() - lastTime;
@@ -20,6 +21,7 @@ class Sequencer implements Update, Start { // Sequence one
                 timeStamps.clear();
 
                 engine.removeUpdate(this);
+                running = false;
             }
         }
     }
@@ -30,7 +32,8 @@ class Sequencer implements Update, Start { // Sequence one
     }
 
     void start() {
-        if (sequences.size() > 0 && sequences.size() == timeStamps.size()) {
+        if (!running && sequences.size() > 0 && sequences.size() == timeStamps.size()) {
+            running = true;
             lastTime = millis();
             timePassed = 0;
 
