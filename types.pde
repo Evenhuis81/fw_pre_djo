@@ -14,3 +14,13 @@ interface Sequence {
     void start();
     int getTimeStamp();
 }
+
+interface Screen {
+    void update();
+    void draw();
+}
+
+interface Button {
+    void show();
+    void inside();
+}
