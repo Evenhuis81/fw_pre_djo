@@ -54,4 +54,12 @@ class Engine {
         showsToAdd.clear();
         showsToRemove.clear();
     }
+
+    void showStatistics() {
+        textAlign(LEFT, TOP);
+        textSize(26);
+        fill(255);
+        text("Shows:   " + shows.size(), 0, 30);
+        text("Updates: " + updates.size(), 0, 60);
+    }
 }

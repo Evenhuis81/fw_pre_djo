@@ -2,6 +2,7 @@ import java.util.Arrays;
 
 Engine engine;
 Sequencer sequencer;
+Sequence sequence1;
 int backgroundColor = 0;
 
 void setup() {
@@ -10,8 +11,6 @@ void setup() {
     engine = new Engine();
     
     sequencer = new Sequencer();
-
-    sequencer.start();
 }
 
 void draw() {
@@ -19,6 +18,8 @@ void draw() {
 
     engine.update();
     engine.draw();
+
+    engine.showStatistics();
 }
 
 color randomColor() {
