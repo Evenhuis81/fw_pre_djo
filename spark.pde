@@ -2,12 +2,12 @@ class Spark extends Particle implements Show {
     color strokeColor, fillColor;
     int radius, strokeSize;
 
-    Spark(float x, float y, color strokeColor, color fillColor) {
+    Spark(float x, float y, color strokeColor, color fillColor, int radius, int strokeSize) {
         pos.set(x, y);
         this.strokeColor = strokeColor;
         this.fillColor = fillColor;
-        radius = 15;
-        strokeSize = 2;
+        this.radius = radius;
+        this.strokeSize = strokeSize;
     }
     
     void show() {

@@ -1,6 +1,7 @@
 import java.util.Arrays;
 
 Engine engine;
+Sequencer sequencer;
 int backgroundColor = 0;
 
 void setup() {
@@ -8,10 +9,9 @@ void setup() {
 
     engine = new Engine();
     
-    Spark spark = new Spark(width/2, height + 15, color(255, 0, 0), color(0, 255, 0));
+    sequencer = new Sequencer();
 
-    engine.addUpdate(spark);
-    engine.addShow(spark);
+    sequencer.start();
 }
 
 void draw() {
@@ -19,4 +19,9 @@ void draw() {
 
     engine.update();
     engine.draw();
+}
+
+color randomColor() {
+    // possibly add alpha
+    return color(random(256), random(256), random(256));
 }
