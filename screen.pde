@@ -1,43 +1,43 @@
-class Menu implements Screen {
-    ArrayList<Button> buttons = new ArrayList<Button>();
-
-    Menu(BUtton[] buttons) {
-        this.buttons.addAll(Array.asList(buttons));
+class DefaultScreen implements Screen {
+    void mousePress() {
+        println("mousePressed");
     }
 
-    void update() {
-        //
+    void mouseRelease() {
+        println("mouseReleased");
     }
 
-    void draw() {
-        //
+    void keyPress() {
+        println("keyPressed");
+    }
+
+    void keyRelease() {
+        println("keyReleased");
     }
 }
 
-class Playfield implements Screen {
-    ArrayList<Button> buttons = new ArrayList<Button>();
+class Playfield extends DefaultScreen {
     Sequencer sequencer;
-    Sequence sequence1;
-    Button startButton;
+    DefaultButton startButton;
 
-    Menu(BUtton[] buttons) { // functions as a setup (like main)
-        this.buttons.addAll(Array.asList(buttons));
+    Playfield() { // functions as a setup (like main)
+        startButton = new DefaultButton(width/2, height/2, "Start Sequence 1"); // default constructor
+
+        engine.addShow(startButton);
 
         sequencer = new Sequencer();
 
-        startButton = new Button(width/2, height/2, "Start Sequence 1"); // default constructor
+        Sequence1 sequence1 = new Sequence1();
+
+        sequencer.setSequence(sequence1);
+
     }
 
-    // engine.update();
-    // engine.draw();
-
-    // engine.showStatistics();
-
-    void update() {
-        startButton.show(); // temporarily, add this to screen (next story);
+    void keyRelease() {
+        if (key == ' ' && !sequencer.running) sequencer.start();
     }
 
-    void draw() {
-        //
+    void mouseRelease() {
+        if (startButton.inside(mouseX, mouseY) && !sequencer.running) sequencer.start();
     }
 }

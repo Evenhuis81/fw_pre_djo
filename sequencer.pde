@@ -1,61 +1,60 @@
 class Sequencer implements Update, Start { // Sequence one
-    ArrayList<Sequence> sequences = new ArrayList<Sequence>();
-    ArrayList<Integer> timeStamps = new ArrayList<Integer>();
+    Sequence sequence;
     float lastTime, timePassed;
     int index = 0;
     boolean running = false;
+
+    Sequencer() {}
+
+    void setSequence(Sequence sequence) {
+        this.sequence = sequence;
+    }
 
     void update() {
         timePassed += millis() - lastTime;
 
         lastTime = millis();
 
-        if (timePassed > timeStamps.get(index)) {
-        sequences.get(index).start();
+        if (timePassed > sequence.timeStamps[index]) {
+            sequence[index].start(index);
 
             index++;
 
-            if (index > sequences.size() - 1) {
-                index = 0;
-                sequences.clear();
-                timeStamps.clear();
-
+            if (index > sequence.length - 1) {
                 engine.removeUpdate(this);
                 running = false;
+                index = 0;
             }
         }
     }
 
-    void addSequence(Sequence sequence) {
-        sequences.add(sequence);
-        timeStamps.add(sequence.getTimeStamp());
-    }
-
     void start() {
-        if (!running && sequences.size() > 0 && sequences.size() == timeStamps.size()) {
-            running = true;
+        if (!running && sequence.fireworks.length > 0 && sequence.fireworks.length == sequence.timeStamps.length) {
             lastTime = millis();
             timePassed = 0;
 
+            running = true;
             engine.addUpdate(this);
         }
     }
 }
 
-class Sequence1 implements Sequence {
-    Dahlia dahlia = new Dahlia();
-    int timeStamp;
+class DefaultSequence {
+    //
+}
 
-    Sequence1(int timeStart) {
-        timeStamp = timeStart;
+class Sequence1 extends DefaultSequence {
+    Dahlia[] fireworks = new Dahlia[11];
+    int[] timeStamps = { 0, 1000, 1900, 2700, 3400, 4000, 4500, 4900, 5200, 5400, 5500 };
+
+    Sequence1() {
+        for (int i = 0; i < fireworks.length; i++) {
+            fireworks[i] = new Dahlia();
+        }
     }
 
-    void start() {
-        engine.addUpdate(dahlia);
-        engine.addShow(dahlia);
-    }
-
-    int getTimeStamp() {
-        return timeStamp;
+    void start(int index) {
+        engine.addUpdate(fireworks[index]);
+        engine.addShow(fireworks[index]);
     }
 }

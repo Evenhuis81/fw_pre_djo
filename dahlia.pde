@@ -1,5 +1,4 @@
 class Dahlia extends Spark {
-    // Spark launchSpark = new Spark(width/2, height + 15, color(255, 0, 0), color(0, 255, 0), 15, 1);
     boolean exploded = false;
 
     Dahlia() {

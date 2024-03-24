@@ -1,22 +1,23 @@
 import java.util.Arrays;
 
-int backgroundColor = 0;
-
 Engine engine;
+Screen screen;
 
 void setup() {
     size(800, 600);
 
     engine = new Engine();
+
+    screen = new DefaultScreen();
 }
+
+int backgroundColor = 0;
 
 void draw() {
     background(backgroundColor);
 
-    // === MenuScreen
-    // engine.update();
-    // engine.draw();
+    engine.update();
 
-    // engine.showStatistics();
+    engine.draw();
 }
 
