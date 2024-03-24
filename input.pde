@@ -1,22 +1,15 @@
-void keyReleased() {
-    if (key == ' ' && !sequencer.running) {
-        startSequencer();
-    }
-}
-
 void mousePressed() {
-    //
+    screen.mousePress();
 }
 
 void mouseReleased() {
-    if (startButton.inside() && !sequencer.running) startSequencer();
+    screen.mouseRelease();
 }
 
-void startSequencer() {
-    for (int i = 0; i < 5000; i += 500) {
-        Sequence1 seq1 = new Sequence1(i);
-        sequencer.addSequence(seq1);
-    }
+void keyPressed() {
+    screen.keyPress();
+}
 
-    sequencer.start();
+void keyReleased() {
+    screen.keyRelease();
 }

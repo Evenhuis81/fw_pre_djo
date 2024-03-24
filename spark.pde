@@ -13,6 +13,7 @@ class Spark extends Particle implements Show {
     }
     
     void show() {
+        noStroke();
         fill(red, green, blue, alpha);
         circle(pos.x, pos.y, radius * 2);
     }

@@ -1,25 +1,23 @@
-class Button implements Show {
-    float x = width/2;
-    float y = height/2;
-    String text;
+class DefaultButton implements Button, Show {
     int h = 50;
     int w = 200;
+    float x = width/2 - w/2;
+    float y = height/2 - h/2;
+    String text = "Button";
     int r = 25; // rounded corner (%)
     int strokeColor = 255;
     int strokeSize = 4;
 
-    Button() { // default constructor (= default button)
-        //
-    }
+    DefaultButton() {} // default constructor
 
-    Button(float x, float y, String txt) { // parameterized constructor (overload1: position only)
+    DefaultButton(float x, float y, String txt) { // parameterized constructor
         this.x = x;
         this.y = y;
         text = txt;
     }
 
-    boolean inside() {
-        return mouseX >= x && mouseX < x + w && mouseY >= y && mouseY < y + h;
+    boolean inside(float xInc, float yInc) {
+        return xInc >= x && xInc < x + w && yInc >= y && yInc < y + h;
     }
 
     void show() {
