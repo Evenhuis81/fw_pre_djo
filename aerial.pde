@@ -1,7 +1,7 @@
-class Dahlia extends Spark {
+class Aerial extends Spark {
     boolean exploded = false;
 
-    Dahlia() {
+    Aerial() {
         super(width/2, height + 15, 15, (int) random(256), (int) random(256), (int) random(256));
         vel.y = -10; // launchSpeed
         acc.y = 0.1; // gravity (heavier than exploding sparks)

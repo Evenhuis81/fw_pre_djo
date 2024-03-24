@@ -8,7 +8,7 @@ void setup() {
 
     engine = new Engine();
 
-    screen = new DefaultScreen();
+    screen = new Playfield();
 }
 
 int backgroundColor = 0;
@@ -19,5 +19,6 @@ void draw() {
     engine.update();
 
     engine.draw();
-}
 
+    engine.showStatistics();
+}

@@ -16,11 +16,11 @@ class Sequencer implements Update, Start { // Sequence one
         lastTime = millis();
 
         if (timePassed > sequence.timeStamps[index]) {
-            sequence[index].start(index);
+            sequence.start(index);
 
             index++;
 
-            if (index > sequence.length - 1) {
+            if (index > sequence.elements.length - 1) {
                 engine.removeUpdate(this);
                 running = false;
                 index = 0;
@@ -29,7 +29,7 @@ class Sequencer implements Update, Start { // Sequence one
     }
 
     void start() {
-        if (!running && sequence.fireworks.length > 0 && sequence.fireworks.length == sequence.timeStamps.length) {
+        if (!running && sequence.elements.length > 0 && sequence.elements.length == sequence.timeStamps.length) {
             lastTime = millis();
             timePassed = 0;
 
@@ -39,22 +39,18 @@ class Sequencer implements Update, Start { // Sequence one
     }
 }
 
-class DefaultSequence {
-    //
-}
-
-class Sequence1 extends DefaultSequence {
-    Dahlia[] fireworks = new Dahlia[11];
+class Sequence {
+    Spark[] elements = new Aerial[11];
     int[] timeStamps = { 0, 1000, 1900, 2700, 3400, 4000, 4500, 4900, 5200, 5400, 5500 };
 
-    Sequence1() {
-        for (int i = 0; i < fireworks.length; i++) {
-            fireworks[i] = new Dahlia();
+    Sequence() {
+        for (int i = 0; i < elements.length; i++) {
+            elements[i] = new Aerial();
         }
     }
 
     void start(int index) {
-        engine.addUpdate(fireworks[index]);
-        engine.addShow(fireworks[index]);
+        engine.addUpdate(elements[index]);
+        engine.addShow(elements[index]);
     }
 }

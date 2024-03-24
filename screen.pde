@@ -26,18 +26,19 @@ class Playfield extends DefaultScreen {
         engine.addShow(startButton);
 
         sequencer = new Sequencer();
-
-        Sequence1 sequence1 = new Sequence1();
-
-        sequencer.setSequence(sequence1);
-
     }
 
     void keyRelease() {
-        if (key == ' ' && !sequencer.running) sequencer.start();
+        if (key == ' ' && !sequencer.running) {
+            sequencer.setSequence(new Sequence());
+            sequencer.start();
+        }
     }
 
     void mouseRelease() {
-        if (startButton.inside(mouseX, mouseY) && !sequencer.running) sequencer.start();
+        if (startButton.inside(mouseX, mouseY) && !sequencer.running) {
+            sequencer.setSequence(new Sequence());
+            sequencer.start();
+        }
     }
 }

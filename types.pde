@@ -17,10 +17,6 @@ interface Screen {
     void keyRelease();
 }
 
-interface Sequence {
-    void start();
-}
-
 interface Button {
     boolean inside(float xInc, float yInc);
     void show();
