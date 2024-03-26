@@ -1,15 +1,21 @@
 class Spark extends Particle implements Show {
     int radius, red, green, blue, alpha;
 
-    Spark() {}
+    Spark() { // default constructor
+        radius = 10;
+        red = (int) random(256);
+        green = (int) random(256);
+        blue = (int) random(256);
+        alpha = 255;
+    }
 
-    Spark(float x, float y, int radius, int red, int green, int blue) {
-        pos.set(x, y);
+    Spark(PVector pos, int radius, int red, int green, int blue, int alpha) { // parameterized constructor
+        this.pos.set(pos);
         this.radius = radius;
         this.red = red;
         this.green = green;
         this.blue = blue;
-        alpha = 255;
+        this.alpha = alpha;
     }
     
     void show() {
@@ -20,16 +26,19 @@ class Spark extends Particle implements Show {
 }
 
 class SparkFade extends Spark {
-    SparkFade(float x, float y, int radius, int red, int green, int blue) {
-        super(x, y, radius, red, green, blue);
+    float fadeSpeed = 3;
+
+    SparkFade(PVector pos, float fadeSpeed, int radius, int red, int green, int blue, int alpha) {
+        super(pos, radius, red, green, blue, alpha);
+        this.fadeSpeed = fadeSpeed;
     }
 
     void update() {
         super.update();
 
-        alpha -= 3;
+        alpha -= fadeSpeed;
 
-        if (alpha < 1) {
+        if (alpha <= 0) {
             engine.removeUpdate(this);
             engine.removeShow(this);
         }

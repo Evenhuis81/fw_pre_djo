@@ -1,15 +1,17 @@
 class Aerial extends Spark {
     boolean exploded = false;
 
-    Aerial() {
-        super(width/2, height + 15, 15, (int) random(256), (int) random(256), (int) random(256));
-        vel.y = -10; // launchSpeed
+    Aerial(PVector startPos, float launchSpeed, float angle, int radius, int red, int green, int blue, int alpha) {
+        super(startPos, radius, red, green, blue, alpha);
+        pos.set(startPos);
+        vel.set(PVector.fromAngle(angle).mult(launchSpeed));
         acc.y = 0.1; // gravity (heavier than exploding sparks)
     }
 
     void update() {
         super.update();
 
+        // make this a dynamic condition
         if (vel.y > 0 && !exploded) {
 
             explode(30);
@@ -25,7 +27,7 @@ class Aerial extends Spark {
         Spark[] sparks = new SparkFade[amount];
 
         for (int i = 0; i < sparks.length; i++) {
-            sparks[i] = new SparkFade(pos.x, pos.y, 10, (int) random(256), (int) random(256), (int) random(256));
+            sparks[i] = new SparkFade(pos, 3, 10, red, green, blue, 255);
             sparks[i].vel.set(PVector.random2D().mult(5));
             sparks[i].acc.y = 0.05;
         }

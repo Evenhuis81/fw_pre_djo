@@ -18,10 +18,11 @@ class DefaultScreen implements Screen {
 
 class Playfield extends DefaultScreen {
     Sequencer sequencer;
-    DefaultButton startButton;
+    DefaultButton startButton, startButton2;
 
-    Playfield() { // functions as a setup (like main)
-        startButton = new DefaultButton(width/2, height/2, "Start Sequence 1"); // default constructor
+    Playfield() { // functions as a setup()
+        startButton = new DefaultButton(width/2, height/2, "Start Sequence 1");
+        startButton2 = new DefaultButton(width/2, height/2 + 80, "Start Sequence 2");
 
         engine.addShow(startButton);
 
@@ -29,7 +30,7 @@ class Playfield extends DefaultScreen {
     }
 
     void keyRelease() {
-        if (key == ' ' && !sequencer.running) {
+        if (key == 1 && !sequencer.running) {
             sequencer.setSequence(new Sequence());
             sequencer.start();
         }

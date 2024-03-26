@@ -4,7 +4,7 @@ Engine engine;
 Screen screen;
 
 void setup() {
-    size(800, 600);
+    size(1200, 600);
 
     engine = new Engine();
 
