@@ -2,7 +2,7 @@ class Sequencer implements Update, Start { // Sequence one
     Sequence sequence;
     float lastTime, timePassed;
     int index = 0;
-    ArrayList<Boolean> running = new ArrayList<Boolean>();
+    boolean running = false;
 
     Sequencer() {}
 
@@ -37,22 +37,6 @@ class Sequencer implements Update, Start { // Sequence one
             running = true;
             engine.addUpdate(this);
         }
-    }
-}
-
-class Sequence {
-    Spark[] elements = new Aerial[11];
-    int[] timeStamps = { 0, 1000, 1900, 2700, 3400, 4000, 4500, 4900, 5200, 5400, 5500 };
-
-    Sequence() {
-        for (int i = 0; i < elements.length; i++) { // pos, launchSpeed, angle, radius, colors
-            elements[i] = new Aerial(new PVector(width/2, height + 15), 8 + i * 0.3, PI * (1.25 + i * 0.05), 15, 255, 0, 0, 175);
-        }
-    }
-
-    void start(int index) {
-        engine.addUpdate(elements[index]);
-        engine.addShow(elements[index]);
     }
 }
 

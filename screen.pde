@@ -43,3 +43,21 @@ class Playfield extends DefaultScreen {
         }
     }
 }
+
+class Menu extends DefaultScreen {
+    DefaultButton[] buttons = new DefaultButton[2];
+
+    Menu() {
+        buttons[0] = new GoToMenuButton(width/2, height/2, "Back To Menu");
+        buttons[1] = new DefaultButton(width/2, height/2 + 80, "Sequencer");
+
+        engine.addShow(buttons[0]);
+        engine.addShow(buttons[1]);
+    }
+
+    void mouseRelease() {
+        for (DefaultButton b : buttons) {
+            if (b.inside(mouseX, mouseY) && b.pressed) b.run();
+        }
+    }
+}

@@ -1,5 +1,7 @@
 import java.util.Arrays;
 
+int backgroundColor = 0;
+
 Engine engine;
 Screen screen;
 
@@ -8,10 +10,9 @@ void setup() {
 
     engine = new Engine();
 
-    screen = new Playfield();
+    screen = new Menu();
 }
 
-int backgroundColor = 0;
 
 void draw() {
     background(backgroundColor);
