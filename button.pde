@@ -1,36 +1,47 @@
-class DefaultButton implements Button, Show {
+class Button implements Show {
     int h = 50;
     int w = 200;
     float x = width/2 - w/2;
     float y = height/2 - h/2;
     String text = "Button";
     int r = 25; // rounded corner (%)
-    int strokeColor = 255;
+    int strokeColor = color(255);
     int strokeSize = 4;
+    int textWeight = 26;
+    color fillColor = color(0);
     color textColor = color(255);
     boolean pressed = false;
 
-    DefaultButton() {} // default constructor
+    Button() {} // default constructor
 
-    DefaultButton(float x, float y, String txt) { // parameterized constructor
+    Button(float x, float y, String txt) { // parameterized constructor
         this.x = x;
         this.y = y;
         text = txt;
     }
 
-    boolean inside(float xInc, float yInc) {
-        return xInc >= x && xInc < x + w && yInc >= y && yInc < y + h;
+    boolean mouseInside() {
+        return mouseX >= x && mouseX < x + w && mouseY >= y && mouseY < y + h;
     }
 
-    void pressed() {
-        if (inside(mouseX, mouseY)) {
+    void press() {
+        if (mouseInside()) {
             pressed = true;
-            textColor = color(255, 0, 0);
+            fillColor = color(255);
+            textColor = color(0);
+            strokeSize = 2;
+            strokeColor = color(255, 0, 0);
         }
     }
 
-    void released() {
-        println("button method released triggered");
+    void release() {
+        pressed = false;
+        fillColor = color(0);
+        textColor = color(255);
+        strokeSize = 4;
+        strokeColor = color(255);
+
+        if (mouseInside()) run();
     }
 
     void run() {
@@ -38,25 +49,45 @@ class DefaultButton implements Button, Show {
     }
 
     void show() {
-        noFill();
+        fill(fillColor);
         stroke(strokeColor);
         strokeWeight(strokeSize);
         rect(x, y, w, h, r);
 
         textAlign(CENTER, CENTER);
-        textSize(26);
+        textSize(textWeight);
         fill(textColor);
         text(text, x + w/2, y + h/2 - 0.4 * textDescent());
     }
 }
 
 
-class GoToMenuButton extends DefaultButton {
+class GoToMenuButton extends Button {
     GoToMenuButton(float x, float y, String txt) {
         super(x, y, txt);
     }
 
     void run() {
-        println("go to menu button run override abstract method on parent class triggered");
+        screen = new Menu();
+    }  
+}
+
+class GoToPlayfieldButton extends Button {
+    GoToPlayfieldButton(float x, float y, String txt) {
+        super(x, y, txt);
+    }
+
+    void run() {
+        screen = new Playfield();
+    }  
+}
+
+class GoToSequencerButton extends Button {
+    GoToSequencerButton(float x, float y, String txt) {
+        super(x, y, txt);
+    }
+
+    void run() {
+        screen = new Editor();
     }  
 }

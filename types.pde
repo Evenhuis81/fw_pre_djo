@@ -16,8 +16,3 @@ interface Screen {
     void keyPress();
     void keyRelease();
 }
-
-interface Button {
-    boolean inside(float xInc, float yInc);
-    void show();
-}
