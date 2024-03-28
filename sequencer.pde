@@ -44,9 +44,9 @@ class Sequence {
     Spark[] elements = new Aerial[11];
     int[] timeStamps = { 0, 1000, 1900, 2700, 3400, 4000, 4500, 4900, 5200, 5400, 5500 };
 
-    Sequence() {
+    Sequence(int red, int green, int blue, int alpha) {
         for (int i = 0; i < elements.length; i++) { // pos, launchSpeed, angle, radius, colors
-            elements[i] = new Aerial(new PVector(width/2, height + 15), 8 + i * 0.3, PI * (1.25 + i * 0.05), 15, 255, 0, 0, 175);
+            elements[i] = new Aerial(new PVector(width/2, height + 15), 8 + i * 0.3, PI * (1.40 + i * 0.02), 15, red, green, blue, alpha);
         }
     }
 

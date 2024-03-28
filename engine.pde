@@ -1,6 +1,7 @@
 class Engine {
     ArrayList<Update> updates, updatesToAdd, updatesToRemove;
     ArrayList<Show> shows, showsToAdd, showsToRemove;
+    boolean reset = false;
 
     Engine() {
         updates = new ArrayList<Update>();
@@ -43,6 +44,8 @@ class Engine {
 
         updatesToAdd.clear();
         updatesToRemove.clear();
+
+        if (reset) updates.clear();
     }
 
     void draw() {
@@ -53,6 +56,14 @@ class Engine {
 
         showsToAdd.clear();
         showsToRemove.clear();
+
+        if (reset) {
+            shows.clear();
+
+            reset = false;
+
+            screen.resetDone();
+        }
     }
 
     void showStatistics() {

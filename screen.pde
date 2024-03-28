@@ -1,4 +1,4 @@
-class DefaultScreen implements Screen {
+class Screen {
     void mousePress() {
         println("mousePressed");
     }
@@ -14,45 +14,79 @@ class DefaultScreen implements Screen {
     void keyRelease() {
         println("keyReleased");
     }
+
+    void resetDone() {
+        println("resetDone triggered");
+    }
 }
 
-class Playfield extends DefaultScreen {
+class Playfield extends Screen {
     Sequencer sequencer;
-    Button startButton, startButton2;
+    Button[] buttons;
 
     Playfield() { // functions as a setup()
-        startButton = new Button(width/2, height/2, "Start Sequence 1");
-        startButton2 = new Button(width/2, height/2 + 80, "Start Sequence 2");
-
-        engine.addShow(startButton);
-
         sequencer = new Sequencer();
+        Sequence sequence1 = new Sequence(255, 0, 0, 175);
+        Sequence sequence2 = new Sequence(0, 255, 0, 175);
+        Sequence sequence3 = new Sequence(0, 0, 255, 175);
+
+        buttons = new Button[4];
+        buttons[0] = new SequenceStartButton(width/2, height/2 - 80, "Start Sequence 1", sequencer, sequence1);
+        buttons[1] = new SequenceStartButton(width/2, height/2, "Start Sequence 2", sequencer, sequence2);
+        buttons[2] = new SequenceStartButton(width/2, height/2 + 80, "Start Sequence 3", sequencer, sequence3);
+        buttons[3] = new ToMenuButton(50, 50, "Back To Menu");
+
+        engine.addShow(buttons);
     }
 
-    void keyRelease() {
-        if (key == 1 && !sequencer.running) {
-            sequencer.setSequence(new Sequence());
-            sequencer.start();
-        }
+    void mousePress() {
+        for (Button b : buttons) b.press();
     }
 
     void mouseRelease() {
-        if (startButton.inside(mouseX, mouseY) && !sequencer.running) {
-            sequencer.setSequence(new Sequence());
-            sequencer.start();
-        }
+        for (Button b : buttons) b.release();
+    }
+
+    void resetDone() {
+        screen = new Menu();
     }
 }
 
-class Menu extends DefaultScreen {
+class Menu extends Screen {
     Button[] buttons = new Button[2];
 
     Menu() {
-        buttons[0] = new GoToMenuButton(width/2, height/2, "Back To Menu");
-        buttons[1] = new GoToSequencerButton(width/2, height/2 + 80, "Sequencer");
+        buttons[0] = new ToPlayfieldButton(width/2, height/2, "Playfield");
+        buttons[1] = new ToEditorButton(width/2, height/2 + 80, "Editor");
 
         engine.addShow(buttons[0]);
         engine.addShow(buttons[1]);
+    }
+
+    void mousePress() {
+        for (Button b : buttons) b.press();
+    }
+
+    void mouseRelease() {
+        for (Button b : buttons) b.release();
+    }
+
+    void resetDone() {
+        screen = new Playfield();
+    }
+}
+
+class Editor extends Screen {
+    Button[] buttons = new Button[1];
+
+    Editor() {
+        buttons[0] = new ToMenuButton(50, 50, "Back To Menu");
+
+        engine.addShow(buttons[0]);
+
+        ShowTitle showTitle = new ShowTitle("Editor Screen");
+
+        engine.addShow(showTitle);
     }
 
     void mousePress() {
@@ -77,31 +111,30 @@ class ShowTitle implements Show {
         textSize(40);
         fill(255);
         text(title, width/2, yPos);
-        text("Updates: " + updates.size(), 0, 60);
     }
 }
 
-class Editor extends DefaultScreen {
-    // Button[] buttons = new Button[2];
 
-    Editor() {
-        // buttons[0] = new GoToMenuButton(width/2, height/2, "Back To Menu");
-        // buttons[1] = new GoToSequencerButton(width/2, height/2 + 80, "Sequencer");
+class FadeOutToNewScreen implements Update, Show {
+    int alpha = 0;
+    int speed = 3;
 
-        // engine.addShow(buttons[0]);
-        // engine.addShow(buttons[1]);
-
-        ShowTitle showTitle = new ShowTitle("Editor Screen");
-
-        engine.addShow(ShowTitle);
-
+    FadeOutToNewScreen() {
+        engine.addShow(this);
+        engine.addUpdate(this);
     }
 
-    // void mousePress() {
-    //     for (Button b : buttons) b.press();
-    // }
+    void update() {
+        alpha += speed;
 
-    // void mouseRelease() {
-    //     for (Button b : buttons) b.release();
-    // }
+        if (alpha > 255) {
+            engine.reset = true;
+        }
+    }
+
+    void show() {
+        noStroke();
+        fill(0, alpha);
+        rect(0, 0, width, height);
+    }
 }

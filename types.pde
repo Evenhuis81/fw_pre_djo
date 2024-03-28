@@ -9,10 +9,3 @@ interface Show {
 interface Start {
     void start();
 }
-
-interface Screen {
-    void mousePress();
-    void mouseRelease();
-    void keyPress();
-    void keyRelease();
-}

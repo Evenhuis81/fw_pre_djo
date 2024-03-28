@@ -41,11 +41,11 @@ class Button implements Show {
         strokeSize = 4;
         strokeColor = color(255);
 
-        if (mouseInside()) run();
+        if (mouseInside()) trigger();
     }
 
-    void run() {
-        println("button method run triggered");
+    void trigger() {
+        println("trigger on parent button");
     }
 
     void show() {
@@ -61,33 +61,52 @@ class Button implements Show {
     }
 }
 
-
-class GoToMenuButton extends Button {
-    GoToMenuButton(float x, float y, String txt) {
+class ToMenuButton extends Button {
+    ToMenuButton(float x, float y, String txt) {
         super(x, y, txt);
     }
 
-    void run() {
-        screen = new Menu();
+    void trigger() {
+        new FadeOutToNewScreen();
+    }
+}
+
+class ToPlayfieldButton extends Button {
+    ToPlayfieldButton(float x, float y, String txt) {
+        super(x, y, txt);
+    }
+
+    void trigger() {
+        new FadeOutToNewScreen();
     }  
 }
 
-class GoToPlayfieldButton extends Button {
-    GoToPlayfieldButton(float x, float y, String txt) {
+class ToEditorButton extends Button {
+    ToEditorButton(float x, float y, String txt) {
         super(x, y, txt);
     }
 
-    void run() {
-        screen = new Playfield();
-    }  
-}
-
-class GoToSequencerButton extends Button {
-    GoToSequencerButton(float x, float y, String txt) {
-        super(x, y, txt);
-    }
-
-    void run() {
+    void trigger() {
+        engine.reset = true;
         screen = new Editor();
     }  
+}
+
+class SequenceStartButton extends Button {
+    Sequencer sequencer;
+    Sequence sequence;
+
+    SequenceStartButton(float x, float y, String txt, Sequencer sequencer, Sequence sequence) {
+        super(x, y, txt);
+        this.sequencer = sequencer;
+        this.sequence = sequence;
+
+    }
+
+    void trigger() {
+        if (!sequencer.running) {
+            sequencer.setSequence(sequence);
+            sequencer.start();
+        }
+    }
 }
