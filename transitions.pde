@@ -44,35 +44,8 @@ class FadeOutInScreen implements Update, Show, AfterReset {
     }
 
     void afterReset() {
-        println("afterReset");
         screen.initiate();
+        
         fadeIn();
     }
 }
-
-// class FadeInNewScreen implements Update, Show {
-//     Screen newScreen;
-//     int alpha = 255;
-//     int speed = 3;
-
-//     FadeInNewScreen(Screen screen) {
-//         newScreen = screen;
-//         engine.addShow(this);
-//         engine.addUpdate(this);
-//     }
-
-//     void update() {
-//         alpha -= speed;
-
-//         if (alpha < 0) {
-//             engine.removeUpdate(this);
-//             engine.removeShow(this);
-//         }
-//     }
-
-//     void show() {
-//         noStroke();
-//         fill(0, alpha);
-//         rect(0, 0, width, height);
-//     }
-// }

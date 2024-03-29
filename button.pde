@@ -67,7 +67,7 @@ class ToMenuButton extends Button {
     }
 
     void trigger() {
-        // new FadeOutToNewScreen();
+        //
     }
 }
 
