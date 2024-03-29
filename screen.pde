@@ -20,6 +20,30 @@ class Screen {
     }
 }
 
+class Menu extends Screen {
+    Button[] buttons = new Button[2];
+
+    Menu() {
+        buttons[0] = new ToPlayfieldButton(width/2, height/2, "Playfield");
+        buttons[1] = new ToEditorButton(width/2, height/2 + 80, "Editor");
+
+        engine.addShow(buttons[0]);
+        engine.addShow(buttons[1]);
+    }
+
+    void mousePress() {
+        for (Button b : buttons) b.press();
+    }
+
+    void mouseRelease() {
+        for (Button b : buttons) b.release();
+    }
+
+    void resetDone() {
+        screen = new Playfield();
+    }
+}
+
 class Playfield extends Screen {
     Sequencer sequencer;
     Button[] buttons;
@@ -49,30 +73,6 @@ class Playfield extends Screen {
 
     void resetDone() {
         screen = new Menu();
-    }
-}
-
-class Menu extends Screen {
-    Button[] buttons = new Button[2];
-
-    Menu() {
-        buttons[0] = new ToPlayfieldButton(width/2, height/2, "Playfield");
-        buttons[1] = new ToEditorButton(width/2, height/2 + 80, "Editor");
-
-        engine.addShow(buttons[0]);
-        engine.addShow(buttons[1]);
-    }
-
-    void mousePress() {
-        for (Button b : buttons) b.press();
-    }
-
-    void mouseRelease() {
-        for (Button b : buttons) b.release();
-    }
-
-    void resetDone() {
-        screen = new Playfield();
     }
 }
 

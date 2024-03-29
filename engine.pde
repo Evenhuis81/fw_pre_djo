@@ -55,7 +55,7 @@ class Engine {
     void update() {
         for (Update u : updates) u.update();
 
-        if (showsReadyToAddOrRemove) {
+        if (updatesReadyToAddOrRemove) {
             updates.addAll(updatesToAdd);
             updates.removeAll(updatesToRemove);
 

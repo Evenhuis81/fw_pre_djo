@@ -1,4 +1,4 @@
-class Sequencer implements Update, Start { // Sequence one
+class Sequencer implements Update, Start {
     Sequence sequence;
     float lastTime, timePassed;
     int index = 0;
@@ -35,12 +35,13 @@ class Sequencer implements Update, Start { // Sequence one
             timePassed = 0;
 
             running = true;
+
             engine.addUpdate(this);
         }
     }
 }
 
-class Sequence {
+class Sequence { // Sequence One
     Spark[] elements = new Aerial[11];
     int[] timeStamps = { 0, 1000, 1900, 2700, 3400, 4000, 4500, 4900, 5200, 5400, 5500 };
 
