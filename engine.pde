@@ -1,6 +1,10 @@
 class Engine {
     ArrayList<Update> updates, updatesToAdd, updatesToRemove;
     ArrayList<Show> shows, showsToAdd, showsToRemove;
+    boolean updatesReadyToAddOrRemove = false;
+    boolean showsReadyToAddOrRemove = false;
+    boolean updateResetDone = false;
+    boolean showResetDone = false;
     boolean reset = false;
 
     Engine() {
@@ -14,55 +18,83 @@ class Engine {
 
     void addUpdate(Update update) {
         updatesToAdd.add(update);
+
+        updatesReadyToAddOrRemove = true;
     }
 
     void addUpdate(Update[] updates) {
         updatesToAdd.addAll(Arrays.asList(updates));
+
+        updatesReadyToAddOrRemove = true;
     }
 
     void removeUpdate(Update update) {
         updatesToRemove.add(update);
+
+        updatesReadyToAddOrRemove = true;
     }
 
     void addShow(Show show) {
         showsToAdd.add(show);
+
+        showsReadyToAddOrRemove = true;
     }
 
     void addShow(Show[] shows) {
         showsToAdd.addAll(Arrays.asList(shows));
+
+        showsReadyToAddOrRemove = true;
     }
 
     void removeShow(Show show) {
         showsToRemove.add(show);
+
+        showsReadyToAddOrRemove = true;
     }
 
     void update() {
         for (Update u : updates) u.update();
 
-        updates.addAll(updatesToAdd);
-        updates.removeAll(updatesToRemove);
+        if (showsReadyToAddOrRemove) {
+            updates.addAll(updatesToAdd);
+            updates.removeAll(updatesToRemove);
 
-        updatesToAdd.clear();
-        updatesToRemove.clear();
+            updatesToAdd.clear();
+            updatesToRemove.clear();
 
-        if (reset) updates.clear();
+            updatesReadyToAddOrRemove = false;
+        }
+
+        if (reset) {
+            updates.clear();
+
+            updateResetDone = true;
+        }
     }
 
     void draw() {
         for (Show s : shows) s.show();
 
-        shows.addAll(showsToAdd);
-        shows.removeAll(showsToRemove);
+        if (showsReadyToAddOrRemove) {
+            shows.addAll(showsToAdd);
+            shows.removeAll(showsToRemove);
 
-        showsToAdd.clear();
-        showsToRemove.clear();
+            showsToAdd.clear();
+            showsToRemove.clear();
+
+            showsReadyToAddOrRemove = false;
+        }
 
         if (reset) {
             shows.clear();
 
-            reset = false;
+            showResetDone = true;
 
-            screen.resetDone();
+            if (updateResetDone && showResetDone) {
+                reset = false;
+
+                screen.resetDone(); // make this a dynamic thing (send boolean through?)
+            }
         }
     }
 
