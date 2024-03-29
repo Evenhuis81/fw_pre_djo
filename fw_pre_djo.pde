@@ -11,6 +11,8 @@ void setup() {
     engine = new Engine();
 
     screen = new Menu();
+
+    screen.initiate();
 }
 
 

@@ -1,34 +1,32 @@
 class Screen {
     void mousePress() {
-        println("mousePressed");
+        println("mousePressed screen");
     }
 
     void mouseRelease() {
-        println("mouseReleased");
+        println("mouseReleased screen");
     }
 
     void keyPress() {
-        println("keyPressed");
+        println("keyPressed screen");
     }
 
     void keyRelease() {
-        println("keyReleased");
+        println("keyReleased screen");
     }
 
-    void resetDone() {
-        println("resetDone triggered");
+    void initiate() {
+        println("initiate screen");
     }
 }
 
 class Menu extends Screen {
-    Button[] buttons = new Button[2];
+    Button[] buttons;
 
     Menu() {
+        buttons = new Button[2];
         buttons[0] = new ToPlayfieldButton(width/2, height/2, "Playfield");
         buttons[1] = new ToEditorButton(width/2, height/2 + 80, "Editor");
-
-        engine.addShow(buttons[0]);
-        engine.addShow(buttons[1]);
     }
 
     void mousePress() {
@@ -39,8 +37,9 @@ class Menu extends Screen {
         for (Button b : buttons) b.release();
     }
 
-    void resetDone() {
-        screen = new Playfield();
+    void initiate() {
+        engine.addShow(buttons[0]);
+        engine.addShow(buttons[1]);
     }
 }
 
@@ -59,8 +58,6 @@ class Playfield extends Screen {
         buttons[1] = new SequenceStartButton(width/2, height/2, "Start Sequence 2", sequencer, sequence2);
         buttons[2] = new SequenceStartButton(width/2, height/2 + 80, "Start Sequence 3", sequencer, sequence3);
         buttons[3] = new ToMenuButton(50, 50, "Back To Menu");
-
-        engine.addShow(buttons);
     }
 
     void mousePress() {
@@ -71,22 +68,20 @@ class Playfield extends Screen {
         for (Button b : buttons) b.release();
     }
 
-    void resetDone() {
-        screen = new Menu();
+    void initiate() {
+        engine.addShow(buttons);
     }
 }
 
 class Editor extends Screen {
-    Button[] buttons = new Button[1];
+    Button[] buttons;
+    ShowTitle showTitle;
 
     Editor() {
+        buttons = new Button[1];
         buttons[0] = new ToMenuButton(50, 50, "Back To Menu");
 
-        engine.addShow(buttons[0]);
-
-        ShowTitle showTitle = new ShowTitle("Editor Screen");
-
-        engine.addShow(showTitle);
+        showTitle = new ShowTitle("Editor Screen");
     }
 
     void mousePress() {
@@ -95,6 +90,11 @@ class Editor extends Screen {
 
     void mouseRelease() {
         for (Button b : buttons) b.release();
+    }
+
+    void initiate() {
+        engine.addShow(buttons[0]);
+        engine.addShow(showTitle);
     }
 }
 
@@ -111,30 +111,5 @@ class ShowTitle implements Show {
         textSize(40);
         fill(255);
         text(title, width/2, yPos);
-    }
-}
-
-
-class FadeOutToNewScreen implements Update, Show {
-    int alpha = 0;
-    int speed = 3;
-
-    FadeOutToNewScreen() {
-        engine.addShow(this);
-        engine.addUpdate(this);
-    }
-
-    void update() {
-        alpha += speed;
-
-        if (alpha > 255) {
-            engine.reset = true;
-        }
-    }
-
-    void show() {
-        noStroke();
-        fill(0, alpha);
-        rect(0, 0, width, height);
     }
 }

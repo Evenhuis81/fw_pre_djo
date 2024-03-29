@@ -1,15 +1,17 @@
+boolean inputLock = false;
+
 void mousePressed() {
-    screen.mousePress();
+    if (!inputLock) screen.mousePress();
 }
 
 void mouseReleased() {
-    screen.mouseRelease();
+    if (!inputLock) screen.mouseRelease();
 }
 
 void keyPressed() {
-    screen.keyPress();
+    if (!inputLock) screen.keyPress();
 }
 
 void keyReleased() {
-    screen.keyRelease();
+    if (!inputLock) screen.keyRelease();
 }

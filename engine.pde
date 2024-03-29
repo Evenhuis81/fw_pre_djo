@@ -1,11 +1,12 @@
 class Engine {
+    AfterReset afterReset;
     ArrayList<Update> updates, updatesToAdd, updatesToRemove;
     ArrayList<Show> shows, showsToAdd, showsToRemove;
     boolean updatesReadyToAddOrRemove = false;
     boolean showsReadyToAddOrRemove = false;
     boolean updateResetDone = false;
     boolean showResetDone = false;
-    boolean reset = false;
+    boolean doReset = false;
 
     Engine() {
         updates = new ArrayList<Update>();
@@ -14,6 +15,12 @@ class Engine {
         shows = new ArrayList<Show>();
         showsToRemove = new ArrayList<Show>();
         showsToAdd = new ArrayList<Show>();
+    }
+
+    void reset(AfterReset afterReset) {
+        this.afterReset = afterReset;
+
+        doReset = true;
     }
 
     void addUpdate(Update update) {
@@ -65,10 +72,22 @@ class Engine {
             updatesReadyToAddOrRemove = false;
         }
 
-        if (reset) {
+        if (doReset) {
             updates.clear();
 
             updateResetDone = true;
+
+            verifyResetDone();
+        }
+    }
+
+    void verifyResetDone() {
+        if (updateResetDone && showResetDone) {
+            updateResetDone = false;
+            showResetDone = false;
+            doReset = false;
+
+            afterReset.afterReset();
         }
     }
 
@@ -85,16 +104,12 @@ class Engine {
             showsReadyToAddOrRemove = false;
         }
 
-        if (reset) {
+        if (doReset) {
             shows.clear();
 
             showResetDone = true;
 
-            if (updateResetDone && showResetDone) {
-                reset = false;
-
-                screen.resetDone(); // make this a dynamic thing (send boolean through?)
-            }
+            verifyResetDone();
         }
     }
 

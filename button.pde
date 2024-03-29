@@ -67,7 +67,7 @@ class ToMenuButton extends Button {
     }
 
     void trigger() {
-        new FadeOutToNewScreen();
+        // new FadeOutToNewScreen();
     }
 }
 
@@ -77,7 +77,9 @@ class ToPlayfieldButton extends Button {
     }
 
     void trigger() {
-        new FadeOutToNewScreen();
+        inputLock = true;
+
+        new FadeOutInScreen(new Playfield()).fadeOut();
     }  
 }
 
@@ -87,9 +89,9 @@ class ToEditorButton extends Button {
     }
 
     void trigger() {
-        engine.reset = true;
-        screen = new Editor();
-    }  
+        // engine.reset = true;
+        
+    }
 }
 
 class SequenceStartButton extends Button {

@@ -9,3 +9,7 @@ interface Show {
 interface Start {
     void start();
 }
+
+interface AfterReset {
+    void afterReset();
+}
