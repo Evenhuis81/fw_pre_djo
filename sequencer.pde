@@ -41,7 +41,24 @@ class Sequencer implements Update, Start {
     }
 }
 
-class Sequence { // Sequence One
+class SequenceTwo { // Sequence Two (used to be 1st)
+    Spark[] elements = new Aerial[11];
+    int[] timeStamps = { 0, 1000, 1900, 2700, 3400, 4000, 4500, 4900, 5200, 5400, 5500 };
+    int[] angles = new int[11];
+
+    SequenceTwo(int red, int green, int blue, int alpha, int[] angles) {
+        for (int i = 0; i < elements.length; i++) { // pos, launchSpeed, angle, radius, colors
+            elements[i] = new Aerial(new PVector(width/2, height + 15), 8 + i * 0.3, angles[i], 15, red, green, blue, alpha);
+        }
+    }
+
+    void start(int index) {
+        engine.addUpdate(elements[index]);
+        engine.addShow(elements[index]);
+    }
+}
+
+class Sequence { // Sequence Two (used to be 1st)
     Spark[] elements = new Aerial[11];
     int[] timeStamps = { 0, 1000, 1900, 2700, 3400, 4000, 4500, 4900, 5200, 5400, 5500 };
 
