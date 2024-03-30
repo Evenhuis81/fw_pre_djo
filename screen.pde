@@ -1,45 +1,89 @@
-class DefaultScreen implements Screen {
+class Screen {
+    Button[] buttons;
+
     void mousePress() {
-        println("mousePressed");
+        for (Button b : buttons) b.press();
     }
 
     void mouseRelease() {
-        println("mouseReleased");
+        for (Button b : buttons) b.release();
     }
 
     void keyPress() {
-        println("keyPressed");
+        println("keyPressed screen");
     }
 
     void keyRelease() {
-        println("keyReleased");
+        println("keyReleased screen");
+    }
+
+    void initiate() {
+        println("initiate screen");
     }
 }
 
-class Playfield extends DefaultScreen {
+class Menu extends Screen {
+    Menu() {
+        buttons = new Button[2];
+        buttons[0] = new ToPlayfieldButton(width/2, height/2, "Playfield");
+        buttons[1] = new ToEditorButton(width/2, height/2 + 80, "Editor");
+    }
+
+    void initiate() {
+        engine.addShow(buttons[0]);
+        engine.addShow(buttons[1]);
+    }
+}
+
+class Playfield extends Screen {
     Sequencer sequencer;
-    DefaultButton startButton, startButton2;
 
     Playfield() { // functions as a setup()
-        startButton = new DefaultButton(width/2, height/2, "Start Sequence 1");
-        startButton2 = new DefaultButton(width/2, height/2 + 80, "Start Sequence 2");
-
-        engine.addShow(startButton);
-
         sequencer = new Sequencer();
+        Sequence sequence1 = new Sequence(255, 0, 0, 175);
+        Sequence sequence2 = new Sequence(0, 255, 0, 175);
+        Sequence sequence3 = new Sequence(0, 0, 255, 175);
+
+        buttons = new Button[4];
+        buttons[0] = new SequenceStartButton(width/2, height/2 - 80, "Start Sequence 1", sequencer, sequence1);
+        buttons[1] = new SequenceStartButton(width/2, height/2, "Start Sequence 2", sequencer, sequence2);
+        buttons[2] = new SequenceStartButton(width/2, height/2 + 80, "Start Sequence 3", sequencer, sequence3);
+        buttons[3] = new ToMenuButton(50, 50, "Back To Menu");
     }
 
-    void keyRelease() {
-        if (key == 1 && !sequencer.running) {
-            sequencer.setSequence(new Sequence());
-            sequencer.start();
-        }
+    void initiate() {
+        engine.addShow(buttons);
+    }
+}
+
+class Editor extends Screen {
+    ShowTitle showTitle;
+
+    Editor() {
+        buttons = new Button[1];
+        buttons[0] = new ToMenuButton(50, 50, "Back To Menu");
+
+        showTitle = new ShowTitle("Editor Screen");
     }
 
-    void mouseRelease() {
-        if (startButton.inside(mouseX, mouseY) && !sequencer.running) {
-            sequencer.setSequence(new Sequence());
-            sequencer.start();
-        }
+    void initiate() {
+        engine.addShow(buttons[0]);
+        engine.addShow(showTitle);
+    }
+}
+
+class ShowTitle implements Show {
+    String title;
+    float yPos = 100;
+
+    ShowTitle(String title) {
+        this.title = title;
+    }
+
+    void show() {
+        textAlign(CENTER);
+        textSize(40);
+        fill(255);
+        text(title, width/2, yPos);
     }
 }

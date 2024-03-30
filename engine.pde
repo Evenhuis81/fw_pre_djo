@@ -1,6 +1,12 @@
 class Engine {
+    AfterReset afterReset;
     ArrayList<Update> updates, updatesToAdd, updatesToRemove;
     ArrayList<Show> shows, showsToAdd, showsToRemove;
+    boolean updatesReadyToAddOrRemove = false;
+    boolean showsReadyToAddOrRemove = false;
+    boolean updateResetDone = false;
+    boolean showResetDone = false;
+    boolean doReset = false;
 
     Engine() {
         updates = new ArrayList<Update>();
@@ -11,48 +17,100 @@ class Engine {
         showsToAdd = new ArrayList<Show>();
     }
 
+    void reset(AfterReset afterReset) {
+        this.afterReset = afterReset;
+
+        doReset = true;
+    }
+
     void addUpdate(Update update) {
         updatesToAdd.add(update);
+
+        updatesReadyToAddOrRemove = true;
     }
 
     void addUpdate(Update[] updates) {
         updatesToAdd.addAll(Arrays.asList(updates));
+
+        updatesReadyToAddOrRemove = true;
     }
 
     void removeUpdate(Update update) {
         updatesToRemove.add(update);
+
+        updatesReadyToAddOrRemove = true;
     }
 
     void addShow(Show show) {
         showsToAdd.add(show);
+
+        showsReadyToAddOrRemove = true;
     }
 
     void addShow(Show[] shows) {
         showsToAdd.addAll(Arrays.asList(shows));
+
+        showsReadyToAddOrRemove = true;
     }
 
     void removeShow(Show show) {
         showsToRemove.add(show);
+
+        showsReadyToAddOrRemove = true;
     }
 
     void update() {
         for (Update u : updates) u.update();
 
-        updates.addAll(updatesToAdd);
-        updates.removeAll(updatesToRemove);
+        if (updatesReadyToAddOrRemove) {
+            updates.addAll(updatesToAdd);
+            updates.removeAll(updatesToRemove);
 
-        updatesToAdd.clear();
-        updatesToRemove.clear();
+            updatesToAdd.clear();
+            updatesToRemove.clear();
+
+            updatesReadyToAddOrRemove = false;
+        }
+
+        if (doReset) {
+            updates.clear();
+
+            updateResetDone = true;
+
+            verifyResetDone();
+        }
+    }
+
+    void verifyResetDone() {
+        if (updateResetDone && showResetDone) {
+            updateResetDone = false;
+            showResetDone = false;
+            doReset = false;
+
+            afterReset.afterReset();
+        }
     }
 
     void draw() {
         for (Show s : shows) s.show();
 
-        shows.addAll(showsToAdd);
-        shows.removeAll(showsToRemove);
+        if (showsReadyToAddOrRemove) {
+            shows.addAll(showsToAdd);
+            shows.removeAll(showsToRemove);
 
-        showsToAdd.clear();
-        showsToRemove.clear();
+            showsToAdd.clear();
+            showsToRemove.clear();
+
+            showsReadyToAddOrRemove = false;
+        }
+
+        if (doReset) {
+            shows.clear();
+
+            showResetDone = true;
+
+            verifyResetDone();
+        }
     }
 
     void showStatistics() {

@@ -10,14 +10,6 @@ interface Start {
     void start();
 }
 
-interface Screen {
-    void mousePress();
-    void mouseRelease();
-    void keyPress();
-    void keyRelease();
-}
-
-interface Button {
-    boolean inside(float xInc, float yInc);
-    void show();
+interface AfterReset {
+    void afterReset();
 }

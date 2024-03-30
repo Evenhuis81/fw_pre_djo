@@ -1,9 +1,11 @@
 class Aerial extends Spark {
     boolean exploded = false;
+    PVector startPos;
 
     Aerial(PVector startPos, float launchSpeed, float angle, int radius, int red, int green, int blue, int alpha) {
         super(startPos, radius, red, green, blue, alpha);
         pos.set(startPos);
+        this.startPos = new PVector(startPos.x, startPos.y);
         vel.set(PVector.fromAngle(angle).mult(launchSpeed));
         acc.y = 0.1; // gravity (heavier than exploding sparks)
     }
@@ -11,13 +13,14 @@ class Aerial extends Spark {
     void update() {
         super.update();
 
-        // make this a dynamic condition
+        // make this a dynamic condition (fuse-like)
         if (vel.y > 0 && !exploded) {
 
             explode(30);
 
             exploded = true;
 
+            pos.set(startPos);
             engine.removeUpdate(this);
             engine.removeShow(this);
         }
