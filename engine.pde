@@ -1,5 +1,5 @@
 class Engine {
-    AfterReset afterReset;
+    After after;
     ArrayList<Update> updates, updatesToAdd, updatesToRemove;
     ArrayList<Show> shows, showsToAdd, showsToRemove;
     boolean updatesReadyToAddOrRemove = false;
@@ -17,8 +17,8 @@ class Engine {
         showsToAdd = new ArrayList<Show>();
     }
 
-    void reset(AfterReset afterReset) {
-        this.afterReset = afterReset;
+    void reset(After after) {
+        this.after = after;
 
         doReset = true;
     }
@@ -87,7 +87,7 @@ class Engine {
             showResetDone = false;
             doReset = false;
 
-            afterReset.afterReset();
+            after.afterReset();
         }
     }
 

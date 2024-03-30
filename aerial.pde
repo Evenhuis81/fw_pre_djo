@@ -1,12 +1,12 @@
 class Aerial extends Spark {
     boolean exploded = false;
+    float launchSpeed;
     PVector startPos;
 
-    Aerial(PVector startPos, float launchSpeed, float angle, int radius, int red, int green, int blue, int alpha) {
+    Aerial(PVector startPos, float launchSpeed, int radius, int red, int green, int blue, int alpha) {
         super(startPos, radius, red, green, blue, alpha);
-        pos.set(startPos);
         this.startPos = new PVector(startPos.x, startPos.y);
-        vel.set(PVector.fromAngle(angle).mult(launchSpeed));
+        this.launchSpeed = launchSpeed;
         acc.y = 0.1; // gravity (heavier than exploding sparks)
     }
 
@@ -21,9 +21,14 @@ class Aerial extends Spark {
             exploded = true;
 
             pos.set(startPos);
+
             engine.removeUpdate(this);
             engine.removeShow(this);
         }
+    }
+
+    void afterRemove() {
+        //
     }
 
     void explode(int amount) {
