@@ -1,9 +1,11 @@
 class Engine {
     AfterReset afterReset;
+    AfterRemove afterRemove;
     ArrayList<Update> updates, updatesToAdd, updatesToRemove;
     ArrayList<Show> shows, showsToAdd, showsToRemove;
     boolean updatesReadyToAddOrRemove = false;
     boolean showsReadyToAddOrRemove = false;
+    boolean afterRemoveSet = false;
     boolean updateResetDone = false;
     boolean showResetDone = false;
     boolean doReset = false;
@@ -17,6 +19,21 @@ class Engine {
         showsToAdd = new ArrayList<Show>();
     }
 
+    void removeUpdateAndShow(Update update, Show show, AfterRemove afterRemove) {
+        this.afterRemove = afterRemove;
+
+        if (afterRemoveSet) {
+            println("afterRemoveSet is already set!!!");
+
+            return;
+        }
+
+        afterRemoveSet = true;
+
+        removeUpdate(update);
+        removeShow(show);
+    }
+
     void reset(AfterReset afterReset) {
         this.afterReset = afterReset;
 
@@ -26,11 +43,23 @@ class Engine {
     void addUpdate(Update update) {
         updatesToAdd.add(update);
 
+        if (updatesReadyToAddOrRemove) {
+            println("updatesReadyToAddOrRemove is already set!!!");
+
+            return;
+        }
+
         updatesReadyToAddOrRemove = true;
     }
 
     void addUpdate(Update[] updates) {
         updatesToAdd.addAll(Arrays.asList(updates));
+
+        if (afterRemoveSet) {
+            println("updatesReadyToAddOrRemove is already set!!!");
+
+            return;
+        }
 
         updatesReadyToAddOrRemove = true;
     }
@@ -38,11 +67,23 @@ class Engine {
     void removeUpdate(Update update) {
         updatesToRemove.add(update);
 
+        if (afterRemoveSet) {
+            println("updatesReadyToAddOrRemove is already set!!!");
+
+            return;
+        }
+
         updatesReadyToAddOrRemove = true;
     }
 
     void addShow(Show show) {
         showsToAdd.add(show);
+
+        if (afterRemoveSet) {
+            println("showsReadyToAddOrRemove is already set!!!");
+
+            return;
+        }
 
         showsReadyToAddOrRemove = true;
     }
@@ -50,11 +91,23 @@ class Engine {
     void addShow(Show[] shows) {
         showsToAdd.addAll(Arrays.asList(shows));
 
+        if (afterRemoveSet) {
+            println("showsReadyToAddOrRemove is already set!!!");
+
+            return;
+        }
+
         showsReadyToAddOrRemove = true;
     }
 
     void removeShow(Show show) {
         showsToRemove.add(show);
+
+        if (afterRemoveSet) {
+            println("showsReadyToAddOrRemove is already set!!!");
+
+            return;
+        }
 
         showsReadyToAddOrRemove = true;
     }
@@ -70,6 +123,8 @@ class Engine {
             updatesToRemove.clear();
 
             updatesReadyToAddOrRemove = false;
+
+            verifyAfterRemove();
         }
 
         if (doReset) {
@@ -78,6 +133,14 @@ class Engine {
             updateResetDone = true;
 
             verifyResetDone();
+        }
+    }
+
+    void verifyAfterRemove() {
+        if (afterRemoveSet && !updatesReadyToAddOrRemove && !showsReadyToAddOrRemove) {
+            afterRemoveSet = false;
+
+            afterRemove.afterRemove();
         }
     }
 
@@ -102,6 +165,8 @@ class Engine {
             showsToRemove.clear();
 
             showsReadyToAddOrRemove = false;
+
+            verifyAfterRemove();
         }
 
         if (doReset) {

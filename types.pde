@@ -13,3 +13,7 @@ interface Start {
 interface AfterReset {
     void afterReset();
 }
+
+interface AfterRemove {
+    void afterRemove();
+}

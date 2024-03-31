@@ -36,19 +36,15 @@ class Menu extends Screen {
 }
 
 class Playfield extends Screen {
-    Sequencer sequencer;
-
     Playfield() { // functions as a setup()
-        sequencer = new Sequencer();
-        Sequence sequence1 = new Sequence(255, 0, 0, 175);
-        Sequence sequence2 = new Sequence(0, 255, 0, 175);
-        Sequence sequence3 = new Sequence(0, 0, 255, 175);
-
-        buttons = new Button[4];
-        buttons[0] = new SequenceStartButton(width/2, height/2 - 80, "Start Sequence 1", sequencer, sequence1);
-        buttons[1] = new SequenceStartButton(width/2, height/2, "Start Sequence 2", sequencer, sequence2);
-        buttons[2] = new SequenceStartButton(width/2, height/2 + 80, "Start Sequence 3", sequencer, sequence3);
-        buttons[3] = new ToMenuButton(50, 50, "Back To Menu");
+        buttons = new Button[7];
+        buttons[0] = new SequenceStartButton(width/2, height/2 - 240, "Start Sequence 1", new Sequencer(new SeqExample(255, 0, 0, 175)));
+        buttons[1] = new SequenceStartButton(width/2, height/2 - 160, "Start Sequence 2", new Sequencer(new SeqExample2(0, 255, 0, 175)));
+        buttons[2] = new SequenceStartButton(width/2, height/2 - 80, "Start Sequence 3", new Sequencer(new SeqExample3(0, 0, 255, 175)));
+        buttons[3] = new SequenceStartButton(width/2, height/2, "Start Sequence 4", new Sequencer(new SeqExample4(0, 255, 255, 175)));
+        buttons[4] = new SequenceStartButton(width/2, height/2 + 80, "Start Sequence 5", new Sequencer(new SeqExample5(255, 0, 255, 175)));
+        buttons[5] = new SequenceStartButton(width/2, height/2 + 160, "Start Sequence 6", new Sequencer(new SeqExample6(255, 255, 0, 175)));
+        buttons[6] = new ToMenuButton(50, 50, "Back To Menu");
     }
 
     void initiate() {
