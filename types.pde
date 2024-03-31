@@ -10,7 +10,10 @@ interface Start {
     void start();
 }
 
-interface EngineAfter {
+interface AfterReset {
     void afterReset();
+}
+
+interface AfterRemove {
     void afterRemove();
 }

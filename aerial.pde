@@ -1,4 +1,4 @@
-class Aerial extends Spark {
+class Aerial extends Spark implements AfterRemove {
     boolean exploded = false;
     float launchSpeed;
     PVector startPos;
@@ -20,15 +20,12 @@ class Aerial extends Spark {
 
             exploded = true;
 
-            pos.set(startPos);
-
-            engine.removeUpdate(this);
-            engine.removeShow(this);
+            engine.removeUpdateAndShow(this, this, this); // update, show, afterRemove
         }
     }
 
     void afterRemove() {
-        //
+        exploded = false;
     }
 
     void explode(int amount) {
