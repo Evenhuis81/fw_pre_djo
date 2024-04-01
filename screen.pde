@@ -70,11 +70,9 @@ class Editor extends Screen {
     }
 
     void create() {
-        println("createNew call on Editor Screen");
-
         timeLine = new TimeLine();
 
-        // engine.addUpdate(timeLine);
+        engine.addUpdate(timeLine);
         engine.addShow(timeLine);
     }
 }

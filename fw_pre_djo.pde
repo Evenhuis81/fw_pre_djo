@@ -10,7 +10,8 @@ void setup() {
 
     engine = new Engine();
 
-    screen = new Menu();
+    // screen = new Menu();
+    screen = new Editor();
 
     screen.initiate();
 }
