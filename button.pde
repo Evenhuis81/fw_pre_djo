@@ -25,11 +25,8 @@ class Button extends StrokeFillTextColor implements Show {
         if (mouseInside()) {
             pressed = true;
             strokeSize = 2;
-            // fillColor = color(255);
             fillGrayScale(255);
-            // textColor = color(0);
             textGrayScale(0);
-            // strokeColor = color(255, 0, 0);
             strokeRed = 255;
             strokeGreen = 175;
             strokeBlue = 175;
@@ -40,13 +37,9 @@ class Button extends StrokeFillTextColor implements Show {
         pressed = false;
 
         strokeSize = 4;
-        // fillColor = color(0);
         fillGrayScale(0);
-        // strokeColor = color(255);
         strokeGrayScale(255);
-        // textColor = color(255);
         textGrayScale(255);
-
 
         if (mouseInside()) trigger();
     }

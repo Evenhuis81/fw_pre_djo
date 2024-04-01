@@ -55,6 +55,7 @@ class Playfield extends Screen {
 class Editor extends Screen {
     ShowTitle showTitle;
     TimeLine timeLine;
+    boolean timeLineActive = false;
 
     Editor() {
         buttons = new Button[2];
@@ -71,9 +72,16 @@ class Editor extends Screen {
 
     void create() {
         timeLine = new TimeLine();
+        timeLineActive = true;
 
         engine.addUpdate(timeLine);
         engine.addShow(timeLine);
+    }
+
+    void mouseRelease() {
+        super.mouseRelease();
+
+        if (timeLineActive && timeLine.mouseInside()) timeLine.setDot();
     }
 }
 

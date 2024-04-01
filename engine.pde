@@ -20,10 +20,6 @@ class Engine {
         showsToAdd = new ArrayList<Show>();
     }
 
-    void switchStatShow() {
-        showStatistics = !showStatistics;
-    }
-
     void removeUpdateAndShow(Update update, Show show, AfterRemove afterRemove) {
         this.afterRemove = afterRemove;
 

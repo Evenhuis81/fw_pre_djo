@@ -1,4 +1,5 @@
 class TimeLine implements Update, Show {
+    ArrayList<PVector> dots = new ArrayList<PVector>();
     PVector pos;
     float w = 600;
     float h = 50;
@@ -38,8 +39,19 @@ class TimeLine implements Update, Show {
             textAlign(CENTER, CENTER);
             textSize(16);
             fill(255);
-            text("1000ms", pos.x + w/2, pos.y + h/2 - 0.4 * textDescent());
+            int value = (int) ((mouseX - pos.x) / w * (max - min));
+            text(value, mouseX, mouseY - 20 - 0.4 * textDescent());
         }
+
+        for (PVector dot : dots) {
+            fill(255, 0, 0, 255);
+            noStroke();
+            circle(dot.x, dot.y, 10);
+        }
+    }
+
+    void setDot() {
+        dots.add(new PVector(mouseX, pos.y + h/2));
     }
 
     boolean mouseInside() {
