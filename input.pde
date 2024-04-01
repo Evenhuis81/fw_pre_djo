@@ -10,6 +10,11 @@ void mouseReleased() {
 
 void keyPressed() {
     if (!inputLock) screen.keyPress();
+
+    if (key == 't') {
+        // engine.showStatistics = !engine.showStatistics;
+        engine.switchStatShow();
+    }
 }
 
 void keyReleased() {

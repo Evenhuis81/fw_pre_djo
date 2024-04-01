@@ -8,6 +8,7 @@ class Engine {
     boolean afterRemoveSet = false;
     boolean updateResetDone = false;
     boolean showResetDone = false;
+    boolean showStatistics = false;
     boolean doReset = false;
 
     Engine() {
@@ -17,6 +18,10 @@ class Engine {
         shows = new ArrayList<Show>();
         showsToRemove = new ArrayList<Show>();
         showsToAdd = new ArrayList<Show>();
+    }
+
+    void switchStatShow() {
+        showStatistics = !showStatistics;
     }
 
     void removeUpdateAndShow(Update update, Show show, AfterRemove afterRemove) {
@@ -176,13 +181,15 @@ class Engine {
 
             verifyResetDone();
         }
+
+        if (showStatistics) showStats();
     }
 
-    void showStatistics() {
+    void showStats() {
         textAlign(LEFT, TOP);
         textSize(26);
         fill(255);
-        text("Shows:   " + shows.size(), 0, 30);
-        text("Updates: " + updates.size(), 0, 60);
+        text("Shows:   " + shows.size(), width - 150, 30);
+        text("Updates: " + updates.size(), width - 150, 60);
     }
 }

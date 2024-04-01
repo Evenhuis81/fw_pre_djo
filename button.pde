@@ -64,6 +64,7 @@ class Button implements Show {
 class ToMenuButton extends Button {
     ToMenuButton(float x, float y, String txt) {
         super(x, y, txt);
+        w = 50;
     }
 
     void trigger() {
@@ -87,8 +88,7 @@ class ToEditorButton extends Button {
     }
 
     void trigger() {
-        new FadeOutInScreen(new Editor(), 6, 2);
-        
+        new FadeOutInScreen(new Editor(), 10, 10);        
     }
 }
 
@@ -101,5 +101,15 @@ class SequenceStartButton extends Button {
 
     void trigger() {
         sequencer.start();
+    }
+}
+
+class CreateNewSequence extends Button {
+    CreateNewSequence(float x, float y, String txt) {
+        super(x, y, txt);
+    }
+
+    void trigger() {
+        println("Create New Sequence trigger");
     }
 }

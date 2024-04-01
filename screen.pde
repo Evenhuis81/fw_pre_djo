@@ -56,14 +56,15 @@ class Editor extends Screen {
     ShowTitle showTitle;
 
     Editor() {
-        buttons = new Button[1];
-        buttons[0] = new ToMenuButton(50, 50, "Back To Menu");
+        buttons = new Button[2];
+        buttons[0] = new ToMenuButton(50, 50, "<-");
+        buttons[1] = new CreateNewSequence(75, height/2, "Create New");
 
         showTitle = new ShowTitle("Editor Screen");
     }
 
     void initiate() {
-        engine.addShow(buttons[0]);
+        engine.addShow(buttons);
         engine.addShow(showTitle);
     }
 }
@@ -79,7 +80,7 @@ class ShowTitle implements Show {
     void show() {
         textAlign(CENTER);
         textSize(40);
-        fill(255);
+        fill(255, 100, 0);
         text(title, width/2, yPos);
     }
 }

@@ -22,6 +22,4 @@ void draw() {
     engine.update();
 
     engine.draw();
-
-    engine.showStatistics();
 }
