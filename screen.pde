@@ -54,11 +54,12 @@ class Playfield extends Screen {
 
 class Editor extends Screen {
     ShowTitle showTitle;
+    TimeLine timeLine;
 
     Editor() {
         buttons = new Button[2];
         buttons[0] = new ToMenuButton(50, 50, "<-");
-        buttons[1] = new CreateNewSequence(75, height/2, "Create New");
+        buttons[1] = new Create(75, height/2, "Create New", this);
 
         showTitle = new ShowTitle("Editor Screen");
     }
@@ -66,6 +67,15 @@ class Editor extends Screen {
     void initiate() {
         engine.addShow(buttons);
         engine.addShow(showTitle);
+    }
+
+    void create() {
+        println("createNew call on Editor Screen");
+
+        timeLine = new TimeLine();
+
+        // engine.addUpdate(timeLine);
+        engine.addShow(timeLine);
     }
 }
 

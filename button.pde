@@ -1,15 +1,12 @@
-class Button implements Show {
+class Button extends StrokeFillTextColor implements Show {
     int h = 50;
     int w = 200;
     float x = width/2 - w/2;
     float y = height/2 - h/2;
     String text = "Button";
     int r = 25; // rounded corner (%)
-    int strokeColor = color(255);
     int strokeSize = 4;
     int textWeight = 26;
-    color fillColor = color(0);
-    color textColor = color(255);
     boolean pressed = false;
 
     Button() {} // default constructor
@@ -27,19 +24,29 @@ class Button implements Show {
     void press() {
         if (mouseInside()) {
             pressed = true;
-            fillColor = color(255);
-            textColor = color(0);
             strokeSize = 2;
-            strokeColor = color(255, 0, 0);
+            // fillColor = color(255);
+            fillGrayScale(255);
+            // textColor = color(0);
+            textGrayScale(0);
+            // strokeColor = color(255, 0, 0);
+            strokeRed = 255;
+            strokeGreen = 175;
+            strokeBlue = 175;
         }
     }
 
     void release() {
         pressed = false;
-        fillColor = color(0);
-        textColor = color(255);
+
         strokeSize = 4;
-        strokeColor = color(255);
+        // fillColor = color(0);
+        fillGrayScale(0);
+        // strokeColor = color(255);
+        strokeGrayScale(255);
+        // textColor = color(255);
+        textGrayScale(255);
+
 
         if (mouseInside()) trigger();
     }
@@ -49,14 +56,14 @@ class Button implements Show {
     }
 
     void show() {
-        fill(fillColor);
-        stroke(strokeColor);
+        fill(fillRed, fillGreen, fillBlue, fillAlpha);
+        stroke(strokeRed, strokeGreen, strokeBlue, strokeAlpha);
         strokeWeight(strokeSize);
         rect(x, y, w, h, r);
 
         textAlign(CENTER, CENTER);
         textSize(textWeight);
-        fill(textColor);
+        fill(textRed, textGreen, textBlue, textAlpha);
         text(text, x + w/2, y + h/2 - 0.4 * textDescent());
     }
 }
@@ -104,12 +111,41 @@ class SequenceStartButton extends Button {
     }
 }
 
-class CreateNewSequence extends Button {
-    CreateNewSequence(float x, float y, String txt) {
+class Create extends Button implements Update {
+    Editor editor;
+    int fadeAlpha = 255;
+    int fadeSpeed = -10;
+    boolean fading = false;
+
+    Create(float x, float y, String txt, Editor editor) {
         super(x, y, txt);
+        this.editor = editor;
     }
 
     void trigger() {
-        println("Create New Sequence trigger");
+        fading = true;
+
+        engine.addUpdate(this);
+    }
+
+    void update() {
+        fadeOut();
+    }
+
+    void fadeOut() {
+        fadeAlpha += fadeSpeed;
+
+        if (fadeAlpha < 0 && fading) {
+            engine.removeUpdate(this);
+
+            fadeAlpha = 0;
+            fadeSpeed = 0;
+
+            fading = false;
+
+            editor.create();
+        }
+
+        strokeFillTextAlpha(fadeAlpha);
     }
 }

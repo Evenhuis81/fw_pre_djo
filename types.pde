@@ -17,3 +17,7 @@ interface AfterReset {
 interface AfterRemove {
     void afterRemove();
 }
+
+interface CRUD {
+    void create();
+}
