@@ -1,15 +1,16 @@
 class TimeLine implements Update, Show {
-    ArrayList<PVector> dots = new ArrayList<PVector>();
+    ArrayList<PVector> timers = new ArrayList<PVector>();
     PVector pos;
-    float w = 600;
-    float h = 50;
-    float min = 0;
-    float max = 1000;
-    float steps = 10;
-    float step = w / steps;
+    float w, h, min, max, steps, step;
 
-    TimeLine() {
-        pos = new PVector(width/2 - w/2, height/2 - h/2);
+    TimeLine(float x, float y, float width, float minimum, float maximum, float steps) {
+        pos = new PVector(x, y);
+        w = width;
+        h = w/12;
+        min = minimum;
+        max = maximum;
+        this.steps = steps;
+        step = w / steps;
     }
 
     void update() {}
@@ -23,35 +24,33 @@ class TimeLine implements Update, Show {
 
         // timeline
         stroke(255);
-        line(pos.x, pos.y + h * 0.25, pos.x, pos.y + h * 0.75);
         line(pos.x, pos.y + h/2, pos.x + w, pos.y + h/2);
-        line(pos.x + w, pos.y + h * 0.25, pos.x + w, pos.y + h * 0.75);
         
-        for (int i = 1; i < 10; i++) {
+        for (int i = 1; i < steps; i++) {
             line(pos.x + i * step, pos.y + h * 0.4, pos.x + i * step, pos.y + h * 0.6);
         }
 
         if (mouseInside()) {
             stroke(0, 0, 255);
             fill(0);
-            rect(mouseX - 30, mouseY - 35, 60, 30);
+            rect(mouseX - 30, pos.y - 35, 60, 30);
 
             textAlign(CENTER, CENTER);
             textSize(16);
             fill(255);
             int value = (int) ((mouseX - pos.x) / w * (max - min));
-            text(value, mouseX, mouseY - 20 - 0.4 * textDescent());
+            text(value, mouseX, pos.y - 20 - 0.4 * textDescent());
         }
 
-        for (PVector dot : dots) {
+        for (PVector timer : timers) {
             fill(255, 0, 0, 255);
             noStroke();
-            circle(dot.x, dot.y, 10);
+            circle(timer.x, timer.y, h/5);
         }
     }
 
-    void setDot() {
-        dots.add(new PVector(mouseX, pos.y + h/2));
+    void setTimer() {
+        timers.add(new PVector(mouseX, pos.y + h/2));
     }
 
     boolean mouseInside() {

@@ -71,7 +71,9 @@ class Editor extends Screen {
     }
 
     void create() {
-        timeLine = new TimeLine();
+        float w = width/2;
+        float h = w/12;
+        timeLine = new TimeLine(width/2 - w/2, height/2 - h/2, w, 0, 1000, 10);
         timeLineActive = true;
 
         engine.addUpdate(timeLine);
@@ -81,7 +83,7 @@ class Editor extends Screen {
     void mouseRelease() {
         super.mouseRelease();
 
-        if (timeLineActive && timeLine.mouseInside()) timeLine.setDot();
+        if (timeLineActive && timeLine.mouseInside()) timeLine.setTimer();
     }
 }
 
