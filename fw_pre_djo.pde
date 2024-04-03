@@ -8,6 +8,8 @@ Screen screen;
 void setup() {
     size(1200, 600);
 
+
+    // Combine afterRemove update and afterRemove show to 1 function and always apply both at the same time.
     engine = new Engine();
 
     // screen = new Menu();
