@@ -13,7 +13,7 @@ class Aerial extends Spark implements AfterRemove {
     void update() {
         super.update();
 
-        // make this a dynamic condition (fuse-like)
+        // TODO::make this a dynamic condition (fuse-like)
         if (vel.y > 0 && !exploded) {
 
             explode(30);

@@ -1,200 +1,200 @@
-class Engine {
-    AfterReset afterReset;
-    AfterRemove afterRemove;
-    ArrayList<Update> updates, updatesToAdd, updatesToRemove;
-    ArrayList<Show> shows, showsToAdd, showsToRemove;
-    boolean updatesReadyToAddOrRemove = false;
-    boolean showsReadyToAddOrRemove = false;
-    boolean afterRemoveSet = false;
-    boolean updateResetDone = false;
-    boolean showResetDone = false;
-    boolean doReset = false;
+// class Engine {
+//     AfterReset afterReset;
+//     AfterRemove afterRemove;
+//     ArrayList<Update> updates, updatesToAdd, updatesToRemove;
+//     ArrayList<Show> shows, showsToAdd, showsToRemove;
+//     boolean updatesReadyToAddOrRemove = false;
+//     boolean showsReadyToAddOrRemove = false;
+//     boolean afterRemoveSet = false;
+//     boolean updateResetDone = false;
+//     boolean showResetDone = false;
+//     boolean doReset = false;
 
-    Engine() {
-        updates = new ArrayList<Update>();
-        updatesToRemove = new ArrayList<Update>();
-        updatesToAdd = new ArrayList<Update>();
-        shows = new ArrayList<Show>();
-        showsToRemove = new ArrayList<Show>();
-        showsToAdd = new ArrayList<Show>();
-    }
+//     Engine() {
+//         updates = new ArrayList<Update>();
+//         updatesToRemove = new ArrayList<Update>();
+//         updatesToAdd = new ArrayList<Update>();
+//         shows = new ArrayList<Show>();
+//         showsToRemove = new ArrayList<Show>();
+//         showsToAdd = new ArrayList<Show>();
+//     }
 
-    void removeUpdateAndShow(Update update, Show show, AfterRemove afterRemove) {
-        this.afterRemove = afterRemove;
+//     void removeUpdateAndShow(Update update, Show show, AfterRemove afterRemove) {
+//         this.afterRemove = afterRemove;
 
-        if (afterRemoveSet) {
-            println("afterRemoveSet is already set!!!");
+//         if (afterRemoveSet) {
+//             println("afterRemoveSet is already set!!!");
 
-            return;
-        }
+//             return;
+//         }
 
-        afterRemoveSet = true;
+//         afterRemoveSet = true;
 
-        removeUpdate(update);
-        removeShow(show);
-    }
+//         removeUpdate(update);
+//         removeShow(show);
+//     }
 
-    void reset(AfterReset afterReset) {
-        this.afterReset = afterReset;
+//     void reset(AfterReset afterReset) {
+//         this.afterReset = afterReset;
 
-        doReset = true;
-    }
+//         doReset = true;
+//     }
 
-    void addUpdate(Update update) {
-        updatesToAdd.add(update);
+//     void addUpdate(Update update) {
+//         updatesToAdd.add(update);
 
-        if (updatesReadyToAddOrRemove) {
-            println("updatesReadyToAddOrRemove is already set!!!");
+//         if (updatesReadyToAddOrRemove) {
+//             println("updatesReadyToAddOrRemove is already set!!!");
 
-            return;
-        }
+//             return;
+//         }
 
-        updatesReadyToAddOrRemove = true;
-    }
+//         updatesReadyToAddOrRemove = true;
+//     }
 
-    void addUpdate(Update[] updates) {
-        updatesToAdd.addAll(Arrays.asList(updates));
+//     void addUpdate(Update[] updates) {
+//         updatesToAdd.addAll(Arrays.asList(updates));
 
-        if (afterRemoveSet) {
-            println("updatesReadyToAddOrRemove is already set!!!");
+//         if (afterRemoveSet) {
+//             println("updatesReadyToAddOrRemove is already set!!!");
 
-            return;
-        }
+//             return;
+//         }
 
-        updatesReadyToAddOrRemove = true;
-    }
+//         updatesReadyToAddOrRemove = true;
+//     }
 
-    void removeUpdate(Update update) {
-        updatesToRemove.add(update);
+//     void removeUpdate(Update update) {
+//         updatesToRemove.add(update);
 
-        if (afterRemoveSet) {
-            println("updatesReadyToAddOrRemove is already set!!!");
+//         if (afterRemoveSet) {
+//             println("updatesReadyToAddOrRemove is already set!!!");
 
-            return;
-        }
+//             return;
+//         }
 
-        updatesReadyToAddOrRemove = true;
-    }
+//         updatesReadyToAddOrRemove = true;
+//     }
 
-    void addShow(Show show) {
-        showsToAdd.add(show);
+//     void addShow(Show show) {
+//         showsToAdd.add(show);
 
-        if (afterRemoveSet) {
-            println("showsReadyToAddOrRemove is already set!!!");
+//         if (afterRemoveSet) {
+//             println("showsReadyToAddOrRemove is already set!!!");
 
-            return;
-        }
+//             return;
+//         }
 
-        showsReadyToAddOrRemove = true;
-    }
+//         showsReadyToAddOrRemove = true;
+//     }
 
-    void addShow(Show[] shows) {
-        showsToAdd.addAll(Arrays.asList(shows));
+//     void addShow(Show[] shows) {
+//         showsToAdd.addAll(Arrays.asList(shows));
 
-        if (afterRemoveSet) {
-            println("showsReadyToAddOrRemove is already set!!!");
+//         if (afterRemoveSet) {
+//             println("showsReadyToAddOrRemove is already set!!!");
 
-            return;
-        }
+//             return;
+//         }
 
-        showsReadyToAddOrRemove = true;
-    }
+//         showsReadyToAddOrRemove = true;
+//     }
 
-    void removeShow(Show show) {
-        showsToRemove.add(show);
+//     void removeShow(Show show) {
+//         showsToRemove.add(show);
 
-        if (afterRemoveSet) {
-            println("showsReadyToAddOrRemove is already set!!!");
+//         if (afterRemoveSet) {
+//             println("showsReadyToAddOrRemove is already set!!!");
 
-            return;
-        }
+//             return;
+//         }
 
-        showsReadyToAddOrRemove = true;
-    }
+//         showsReadyToAddOrRemove = true;
+//     }
 
-    void update() {
-        for (Update u : updates) u.update();
+//     void update() {
+//         for (Update u : updates) u.update();
 
-        if (updatesReadyToAddOrRemove) {
-            updates.addAll(updatesToAdd);
-            updates.removeAll(updatesToRemove);
+//         if (updatesReadyToAddOrRemove) {
+//             updates.addAll(updatesToAdd);
+//             updates.removeAll(updatesToRemove);
 
-            updatesToAdd.clear();
-            updatesToRemove.clear();
+//             updatesToAdd.clear();
+//             updatesToRemove.clear();
 
-            updatesReadyToAddOrRemove = false;
+//             updatesReadyToAddOrRemove = false;
 
-            verifyAfterRemove();
-        }
+//             verifyAfterRemove();
+//         }
 
-        if (doReset) {
-            updates.clear();
+//         if (doReset) {
+//             updates.clear();
 
-            updateResetDone = true;
+//             updateResetDone = true;
 
-            verifyResetDone();
-        }
-    }
+//             verifyResetDone();
+//         }
+//     }
 
-    void verifyAfterRemove() {
-        if (afterRemoveSet && !updatesReadyToAddOrRemove && !showsReadyToAddOrRemove) {
-            afterRemoveSet = false;
+//     void verifyAfterRemove() {
+//         if (afterRemoveSet && !updatesReadyToAddOrRemove && !showsReadyToAddOrRemove) {
+//             afterRemoveSet = false;
 
-            afterRemove.afterRemove();
-        }
-    }
+//             afterRemove.afterRemove();
+//         }
+//     }
 
-    void verifyResetDone() {
-        if (updateResetDone && showResetDone) {
-            updateResetDone = false;
-            showResetDone = false;
-            doReset = false;
+//     void verifyResetDone() {
+//         if (updateResetDone && showResetDone) {
+//             updateResetDone = false;
+//             showResetDone = false;
+//             doReset = false;
 
-            afterReset.afterReset();
-        }
-    }
+//             afterReset.afterReset();
+//         }
+//     }
 
-    void draw() {
-        for (Show s : shows) s.show();
+//     void draw() {
+//         for (Show s : shows) s.show();
 
-        if (showsReadyToAddOrRemove) {
-            shows.addAll(showsToAdd);
-            shows.removeAll(showsToRemove);
+//         if (showsReadyToAddOrRemove) {
+//             shows.addAll(showsToAdd);
+//             shows.removeAll(showsToRemove);
 
-            showsToAdd.clear();
-            showsToRemove.clear();
+//             showsToAdd.clear();
+//             showsToRemove.clear();
 
-            showsReadyToAddOrRemove = false;
+//             showsReadyToAddOrRemove = false;
 
-            verifyAfterRemove();
-        }
+//             verifyAfterRemove();
+//         }
 
-        if (doReset) {
-            shows.clear();
+//         if (doReset) {
+//             shows.clear();
 
-            showResetDone = true;
+//             showResetDone = true;
 
-            verifyResetDone();
-        }
-    }
+//             verifyResetDone();
+//         }
+//     }
 
-    void setStatistics() {
-        Statistic engineShows = new EngineShowsStatistic();
-        Statistic engineUpdates = new EngineUpdatesStatistic();
+//     void setStatistics() {
+//         Statistic engineShows = new EngineShowsStatistic();
+//         Statistic engineUpdates = new EngineUpdatesStatistic();
 
-        statistics.add(engineShows);
-        statistics.add(engineUpdates);
-    }
-}
+//         statistics.add(engineShows);
+//         statistics.add(engineUpdates);
+//     }
+// }
 
-class EngineShowsStatistic implements Statistic {
-    String getTxt() {
-        return "Shows:   " + engine.shows.size();
-    };
-}
+// class EngineShowsStatistic implements Statistic {
+//     String getTxt() {
+//         return "Shows:   " + engine.shows.size();
+//     };
+// }
 
-class EngineUpdatesStatistic implements Statistic {
-    String getTxt() {
-        return "Updates: " + engine.updates.size();
-    };
-}
+// class EngineUpdatesStatistic implements Statistic {
+//     String getTxt() {
+//         return "Updates: " + engine.updates.size();
+//     };
+// }

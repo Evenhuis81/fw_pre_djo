@@ -2,7 +2,7 @@ import java.util.Arrays;
 
 int backgroundColor = 0;
 
-Statistics statistics;
+// Statistics statistics;
 Engine engine;
 Screen screen;
 
@@ -10,10 +10,6 @@ void setup() {
     size(1200, 600);
 
     engine = new Engine();
-
-    statistics = new Statistics();
-
-    engine.setStatistics();
 
     screen = new Menu();
 

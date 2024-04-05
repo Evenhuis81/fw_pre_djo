@@ -10,10 +10,6 @@ interface Start {
     void start();
 }
 
-interface AfterReset {
-    void afterReset();
-}
-
 interface AfterRemove {
     void afterRemove();
 }
