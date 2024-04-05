@@ -178,11 +178,23 @@ class Engine {
         }
     }
 
-    void showStatistics() {
-        textAlign(LEFT, TOP);
-        textSize(26);
-        fill(255);
-        text("Shows:   " + shows.size(), 0, 30);
-        text("Updates: " + updates.size(), 0, 60);
+    void setStatistics() {
+        Statistic engineShows = new EngineShowsStatistic();
+        Statistic engineUpdates = new EngineUpdatesStatistic();
+
+        statistics.add(engineShows);
+        statistics.add(engineUpdates);
     }
+}
+
+class EngineShowsStatistic implements Statistic {
+    String getTxt() {
+        return "Shows:   " + engine.shows.size();
+    };
+}
+
+class EngineUpdatesStatistic implements Statistic {
+    String getTxt() {
+        return "Updates: " + engine.updates.size();
+    };
 }

@@ -14,4 +14,6 @@ void keyPressed() {
 
 void keyReleased() {
     if (!inputLock) screen.keyRelease();
+
+    if (key == 't') statistics.toggle();
 }
