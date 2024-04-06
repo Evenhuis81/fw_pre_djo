@@ -32,6 +32,7 @@ class FadeOutInScreen implements Update, Show, AfterReset {
             alpha = 255;
             speed = 0;
             screen = newScreen;
+            statistics.toggle(); // TODO::read notes on this
             engine.reset(this);
         } else if (alpha < 0) {
             alpha = 0;

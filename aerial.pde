@@ -13,14 +13,17 @@ class Aerial extends Spark implements AfterRemove {
     void update() {
         super.update();
 
-        // make this a dynamic condition (fuse-like)
+        // TODO::make this a dynamic condition (fuse-like)
         if (vel.y > 0 && !exploded) {
 
             explode(30);
 
             exploded = true;
 
-            engine.removeUpdateAndShow(this, this, this); // update, show, afterRemove
+            // update, show, afterRemove
+            engine.removeUpdate(this);
+            engine.removeShow(this);
+            engine.afterRemove(this);
         }
     }
 
@@ -37,7 +40,7 @@ class Aerial extends Spark implements AfterRemove {
             sparks[i].acc.y = 0.05;
         }
 
-        engine.addUpdate(sparks);
-        engine.addShow(sparks);
+        engine.addUpdates(sparks);
+        engine.addShows(sparks);
     }
 }
