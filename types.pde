@@ -14,6 +14,10 @@ interface AfterRemove {
     void afterRemove();
 }
 
+interface AfterReset {
+    void afterReset();
+}
+
 interface Statistic {
     String getTxt();
 }

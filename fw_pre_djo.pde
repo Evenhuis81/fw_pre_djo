@@ -2,7 +2,7 @@ import java.util.Arrays;
 
 int backgroundColor = 0;
 
-// Statistics statistics;
+Statistics statistics;
 Engine engine;
 Screen screen;
 

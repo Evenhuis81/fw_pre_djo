@@ -32,8 +32,7 @@ class Menu extends Screen {
     void initiate() {
         statistics.toggle();
 
-        engine.addShow(buttons[0]);
-        engine.addShow(buttons[1]);
+        engine.addShows(buttons);
     }
 }
 
@@ -52,7 +51,7 @@ class Playfield extends Screen {
     void initiate() {
         statistics.toggle();
 
-        engine.addShow(buttons);
+        engine.addShows(buttons);
     }
 }
 

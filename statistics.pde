@@ -1,6 +1,6 @@
 class Statistics implements Show {
     ArrayList<Statistic> stats = new ArrayList<Statistic>();
-    PVector pos = new PVector(50, 50);
+    PVector pos = new PVector(width - 200, 50);
     boolean active = false;
 
     void add(Statistic statistic) {
@@ -34,4 +34,25 @@ class Statistics implements Show {
 
         active = false;
     }
+}
+
+void setStatistics() {
+    Statistic engineShows = new EngineShowsStatistic();
+    Statistic engineUpdates = new EngineUpdatesStatistic();
+
+    statistics.add(engineShows);
+    statistics.add(engineUpdates);
+}
+
+
+class EngineShowsStatistic implements Statistic {
+    String getTxt() {
+        return "Shows:   " + engine.shows.size();
+    };
+}
+
+class EngineUpdatesStatistic implements Statistic {
+    String getTxt() {
+        return "Updates: " + engine.updates.size();
+    };
 }
