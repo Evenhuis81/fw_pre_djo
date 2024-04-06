@@ -37,11 +37,8 @@ class Statistics implements Show {
 }
 
 void setStatistics() {
-    Statistic engineShows = new EngineShowsStatistic();
-    Statistic engineUpdates = new EngineUpdatesStatistic();
-
-    statistics.add(engineShows);
-    statistics.add(engineUpdates);
+    statistics.add(new EngineShowsStatistic());
+    statistics.add(new EngineUpdatesStatistic());
 }
 
 

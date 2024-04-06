@@ -11,6 +11,10 @@ void setup() {
 
     engine = new Engine();
 
+    statistics = new Statistics();
+
+    setStatistics();
+
     screen = new Menu();
 
     screen.initiate();

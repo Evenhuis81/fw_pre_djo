@@ -2,7 +2,8 @@ class Engine {
     ArrayList<Update> updates, updatesToAdd, updatesToRemove;
     ArrayList<Show> shows, showsToAdd, showsToRemove;
     ArrayList<AfterRemove> afterRemove;
-    boolean addOrRemove;
+    boolean addOrRemove, doReset;
+    AfterReset afterReset;
 
     Engine() {
         updates = new ArrayList<Update>();
@@ -11,7 +12,14 @@ class Engine {
         shows = new ArrayList<Show>();
         showsToAdd = new ArrayList<Show>();
         showsToRemove = new ArrayList<Show>();
+        afterRemove = new ArrayList<AfterRemove>();
         addOrRemove = false;
+    }
+
+    void reset(AfterReset afterReset) {
+        this.afterReset = afterReset;
+
+        doReset = true;
     }
 
     void afterRemove(AfterRemove afterRemove) {
@@ -82,10 +90,22 @@ class Engine {
             updatesToAdd.clear();
             updatesToRemove.clear();
 
+            // if (afterRemove.size() > 0) {
             for (AfterRemove a : afterRemove) a.afterRemove();
+
             afterRemove.clear();
 
             addOrRemove = false;
+            // }
+        }
+
+        if (doReset) {
+            updates.clear();
+            shows.clear();
+
+            afterReset.afterReset();
+
+            doReset = false;
         }
     }
 

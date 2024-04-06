@@ -67,7 +67,7 @@ class ToMenuButton extends Button {
     }
 
     void trigger() {
-        new FadeOutInScreen(new Menu(), 2, 6); // screen, fadeOut- & fadeInSpeed
+        new FadeOutInScreen(new Menu(), 10, 10); // screen, fadeOut- & fadeInSpeed
     }
 }
 
@@ -77,7 +77,7 @@ class ToPlayfieldButton extends Button {
     }
 
     void trigger() {
-        new FadeOutInScreen(new Playfield(), 8, 8);
+        new FadeOutInScreen(new Playfield(), 10, 10);
     }  
 }
 
@@ -87,7 +87,7 @@ class ToEditorButton extends Button {
     }
 
     void trigger() {
-        new FadeOutInScreen(new Editor(), 6, 2);
+        new FadeOutInScreen(new Editor(), 10, 10);
         
     }
 }
