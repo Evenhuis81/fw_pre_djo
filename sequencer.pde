@@ -41,7 +41,15 @@ class Sequencer implements Update, Start {
     }
 }
 
-class Sequence {
+class Phase1 implements Sequence {
+    /
+
+    void start(int index) {
+        //
+    };
+}
+
+class Sequence1 implements Sequence {
     Aerial[] elements;
     float[] timeStamps;
     float[] angles;
@@ -55,7 +63,7 @@ class Sequence {
     }
 }
 
-class SeqExample extends Sequence {
+class SeqExample extends Sequence1 {
     SeqExample(int red, int green, int blue, int alpha) {
         elements = new Aerial[11];
         timeStamps = new float[11];
@@ -69,7 +77,7 @@ class SeqExample extends Sequence {
     }
 }
 
-class SeqExample2 extends Sequence {
+class SeqExample2 extends Sequence1 {
     SeqExample2(int red, int green, int blue, int alpha) {
         elements = new Aerial[11];
         timeStamps = new float[11];
@@ -83,7 +91,7 @@ class SeqExample2 extends Sequence {
     }
 }
 
-class SeqExample3 extends Sequence {
+class SeqExample3 extends Sequence1 {
     SeqExample3(int red, int green, int blue, int alpha) {
         elements = new Aerial[11];
         timeStamps = new float[11];
@@ -97,7 +105,7 @@ class SeqExample3 extends Sequence {
     }
 }
 
-class SeqExample4 extends Sequence {
+class SeqExample4 extends Sequence1 {
     SeqExample4(int red, int green, int blue, int alpha) {
         elements = new Aerial[11];
         timeStamps = new float[11];
@@ -111,7 +119,7 @@ class SeqExample4 extends Sequence {
     }
 }
 
-class SeqExample5 extends Sequence {
+class SeqExample5 extends Sequence1 {
     SeqExample5(int red, int green, int blue, int alpha) {
         elements = new Aerial[11];
         timeStamps = new float[11];
@@ -125,7 +133,7 @@ class SeqExample5 extends Sequence {
     }
 }
 
-class SeqExample6 extends Sequence {
+class SeqExample6 extends Sequence1 {
     SeqExample6(int red, int green, int blue, int alpha) {
         elements = new Aerial[11];
         timeStamps = new float[11];

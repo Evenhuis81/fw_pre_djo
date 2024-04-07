@@ -21,3 +21,7 @@ interface AfterReset {
 interface Statistic {
     String getTxt();
 }
+
+interface Sequence {
+    void start(int index);
+}
