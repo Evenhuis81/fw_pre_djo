@@ -90,13 +90,11 @@ class Engine {
             updatesToAdd.clear();
             updatesToRemove.clear();
 
-            // if (afterRemove.size() > 0) {
             for (AfterRemove a : afterRemove) a.afterRemove();
 
             afterRemove.clear();
 
             addOrRemove = false;
-            // }
         }
 
         if (doReset) {
