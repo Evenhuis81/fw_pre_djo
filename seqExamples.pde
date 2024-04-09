@@ -1,57 +1,16 @@
-class Sequencer extends Update, Start {
-    Sequence sequence;
-    float lastTime, timePassed;
-    int index = 0;
-    boolean running = false;
+class Sequence {
+    Sequence() {}
 
-    Sequencer(Sequence sequence) {
-        this.sequence = sequence;
-    }
+    ArrayList<int> times = new ArrayList<int>();
 
-    void update() {
-        timePassed += millis() - lastTime;
-
-        lastTime = millis();
-
-        if (timePassed > sequence.times[index]) {
-            sequence.start(index);
-
-            index++;
-
-            if (index > sequence.times.length - 1) {
-                index = 0;
-
-                running = false; // fireworks might still be displayed
-
-                engine.removeUpdate(this);
-            }
-        }
-    }
+    void start(int index) {
+        println("Start with index: " + index + " triggered.");
+    };
 
     void start() {
-        if (!running && sequence.elements.length > 0) {
-            running = true;
-
-            lastTime = millis();
-
-            timePassed = 0;
-
-            engine.addUpdate(this);
-        }
+        println("Start without index triggered.");
     }
 }
-
-// class Sequence {
-//     ArrayList<int> times = new ArrayList<int>();
-
-//     void start(int index) {
-//         println("Start with index: " + index + " triggered.");
-//     };
-
-//     void start() {
-//         println("Start without index triggered.");
-//     }
-// }
 
 // class SeqExample7 extends Sequence {
     // SeqExample7() {
