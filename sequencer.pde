@@ -51,7 +51,6 @@ class Sequence {
 
 class FireworksSequence extends Sequence {
     Aerial[] elements;
-    // float[] times;
     float[] angles;
 
     void start(int index) {
@@ -60,12 +59,6 @@ class FireworksSequence extends Sequence {
 
         engine.addUpdate(elements[index]);
         engine.addShow(elements[index]);
-    }
-}
-
-class SeqExample7 extends FireworksSequence {
-    SeqExample7() {
-        //
     }
 }
 
