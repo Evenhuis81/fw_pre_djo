@@ -93,8 +93,9 @@ class ToEditorButton extends Button {
 }
 
 class SequenceStartButton extends Button {
-    Start sequencer;
-    SequenceStartButton(float x, float y, String txt, Start sequencer) {
+    Sequencer sequencer;
+    
+    SequenceStartButton(float x, float y, String txt, Sequencer sequencer) {
         super(x, y, txt);
         this.sequencer = sequencer;
     }

@@ -1,8 +1,8 @@
 class Sequencer implements Update, Start {
     Sequence sequence;
     float lastTime, timePassed;
-    int index = 0;
     boolean running = false;
+    int index = 0;
 
     Sequencer(Sequence sequence) {
         this.sequence = sequence;
@@ -13,12 +13,12 @@ class Sequencer implements Update, Start {
 
         lastTime = millis();
 
-        if (timePassed > sequence.timeStamps[index]) {
+        if (timePassed > sequence.times[index]) {
             sequence.start(index);
 
             index++;
 
-            if (index > sequence.elements.length - 1) {
+            if (index > sequence.times.length - 1) {
                 index = 0;
 
                 running = false; // fireworks might still be displayed
@@ -29,7 +29,7 @@ class Sequencer implements Update, Start {
     }
 
     void start() {
-        if (!running && sequence.elements.length > 0) {
+        if (!running && sequence.times.length > 0) {
             running = true;
 
             lastTime = millis();
@@ -42,8 +42,15 @@ class Sequencer implements Update, Start {
 }
 
 class Sequence {
+    float[] times;
+
+    void start(int index) {
+        println("Start with index: " + index + " triggered on parent class.");
+    };
+}
+
+class FireworksSequence extends Sequence {
     Aerial[] elements;
-    float[] timeStamps;
     float[] angles;
 
     void start(int index) {
@@ -55,86 +62,86 @@ class Sequence {
     }
 }
 
-class SeqExample extends Sequence {
+class SeqExample extends FireworksSequence {
     SeqExample(int red, int green, int blue, int alpha) {
         elements = new Aerial[11];
-        timeStamps = new float[11];
+        times = new float[11];
         angles = new float[11];
 
         for (int i = 0; i < 11; i++) { // pos, launchSpeed, radius, colors
             elements[i] = new Aerial(new PVector(width/2, height + 15), 8, 15, red, green, blue, alpha);
             angles[i] = PI * (1.4 + i * 0.02);
-            timeStamps[i] = i * 100;
+            times[i] = i * 100;
         }
     }
 }
 
-class SeqExample2 extends Sequence {
+class SeqExample2 extends FireworksSequence {
     SeqExample2(int red, int green, int blue, int alpha) {
         elements = new Aerial[11];
-        timeStamps = new float[11];
+        times = new float[11];
         angles = new float[11];
 
         for (int i = 0; i < 11; i++) { // pos, launchSpeed, radius, colors
             elements[i] = new Aerial(new PVector(width/2, height + 15), 8, 15, red, green, blue, alpha);
             angles[i] = PI * (1.6 - i * 0.02);
-            timeStamps[i] = i * 100;
+            times[i] = i * 100;
         }
     }
 }
 
-class SeqExample3 extends Sequence {
+class SeqExample3 extends FireworksSequence {
     SeqExample3(int red, int green, int blue, int alpha) {
         elements = new Aerial[11];
-        timeStamps = new float[11];
+        times = new float[11];
         angles = new float[11];
 
         for (int i = 0; i < 11; i++) { // pos, launchSpeed, radius, colors
             elements[i] = new Aerial(new PVector(width * 0.25 + (width/2 * i/11) , height + 15), 8, 15, red, green, blue, alpha);
             angles[i] = PI * 1.5;
-            timeStamps[i] = i * 100;
+            times[i] = i * 100;
         }
     }
 }
 
-class SeqExample4 extends Sequence {
+class SeqExample4 extends FireworksSequence {
     SeqExample4(int red, int green, int blue, int alpha) {
         elements = new Aerial[11];
-        timeStamps = new float[11];
+        times = new float[11];
         angles = new float[11];
 
         for (int i = 0; i < 11; i++) { // pos, launchSpeed, radius, colors
             elements[i] = new Aerial(new PVector(width * 0.75 - (width/2 * i/11) , height + 15), 8, 15, red, green, blue, alpha);
             angles[i] = PI * 1.5;
-            timeStamps[i] = i * 100;
+            times[i] = i * 100;
         }
     }
 }
 
-class SeqExample5 extends Sequence {
+class SeqExample5 extends FireworksSequence {
     SeqExample5(int red, int green, int blue, int alpha) {
         elements = new Aerial[11];
-        timeStamps = new float[11];
+        times = new float[11];
         angles = new float[11];
 
         for (int i = 0; i < 11; i++) { // pos, launchSpeed, radius, colors
             elements[i] = new Aerial(new PVector(width * 0.25 + (width/2 * i/11) , height + 15), 8, 15, red, green, blue, alpha);
             angles[i] = PI * (1.6 - i * 0.02);
-            timeStamps[i] = i * 100;
+            times[i] = i * 100;
         }
     }
 }
 
-class SeqExample6 extends Sequence {
+class SeqExample6 extends FireworksSequence {
     SeqExample6(int red, int green, int blue, int alpha) {
         elements = new Aerial[11];
-        timeStamps = new float[11];
+        times = new float[11];
         angles = new float[11];
 
         for (int i = 0; i < 11; i++) { // pos, launchSpeed, radius, colors
             elements[i] = new Aerial(new PVector(width * 0.25 + (width/2 * i/11) , height + 15), 8, 15, red, green, blue, alpha);
             angles[i] = PI * (1.4 + i * 0.02);
-            timeStamps[i] = i * 100;
+            times[i] = i * 100;
         }
     }
 }
